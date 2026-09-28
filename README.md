@@ -1,5 +1,29 @@
 # Med2686
 
+## Mentor BA technico-fonctionnel
+
+Skill Claude Code qui accompagne une mission AMOA / BA / testeur fonctionnel : il situe la mission, pose
+les bonnes questions, puis donne la démarche (réunions, participants, comptes rendus et destinataires),
+la posture à adopter, un exemple et la trame à remplir. Il tient un journal de mission.
+
+| Emplacement | Contenu |
+| --- | --- |
+| `.claude/skills/mentor-ba-technico-fonctionnel/` | Le skill et ses fiches de référence |
+| `.claude/commands/mentor.md` | La commande `/mentor` |
+| `.claude/hooks/rappel-mission.py` | Rappel des échéances du journal à chaque ouverture de session |
+| `mission/journal-de-mission.md` | Votre journal de mission (créé par le mentor au démarrage d'une mission) |
+
+### Utilisation
+
+```
+/mentor                      → point de situation (préparation le lundi, bilan le vendredi)
+/mentor <question>           → conseil sur une situation précise
+/mentor <texte collé>        → analyse d'un mail, d'un CR, d'une spec…
+```
+
+Sans commande, il suffit de parler de sa mission : le skill se déclenche seul.
+Pour produire le document Word/Excel final, le mentor s'appuie sur le skill `ba-fonctionnel`.
+
 ## watermarks-remover
 
 Copie complète de [guillaumemeyer/watermarks-remover](https://github.com/guillaumemeyer/watermarks-remover) (licence MIT).
