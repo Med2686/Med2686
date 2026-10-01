@@ -74,3 +74,17 @@ skills et les agents `cavecrew-*` sont copiés, pas le reste du dépôt (proxy, 
 
 Activation du mode compressé : `/caveman` (niveaux `lite`, `full`, `ultra`), arrêt : « stop caveman ».
 Les documents, commits et messages destinés à d'autres personnes restent rédigés normalement.
+
+## brand-motion-design
+
+Skill [ouerf-man/brand-motion-design-skill](https://github.com/ouerf-man/brand-motion-design-skill) (licence MIT) :
+crée un film motion design de marque (Reel, TikTok, vidéo de lancement…) en code avec HyperFrames et Three.js.
+
+| Emplacement | Contenu |
+| --- | --- |
+| `.claude/skills/brand-motion-design/` | Le skill, ses scripts et modèles, avec `LICENSE` et la version copiée dans `UPSTREAM`. |
+| `scripts/update-brand-motion-design.sh` | Met à jour le skill (`scripts/update-brand-motion-design.sh [ref]`). |
+
+Prérequis : Node.js 22+, FFmpeg, [uv](https://docs.astral.sh/uv/) ; HyperFrames est installé par projet
+(`npx hyperframes init`). Utilisation : demander par exemple « Fais un Reel de 20 secondes pour cette marque ».
+Les vidéos sont générées dans `videos/`.

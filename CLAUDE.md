@@ -21,3 +21,5 @@ Il veut un avis objectif et franc, sans flatterie.
 - Skills caveman (`.claude/skills/caveman*`, `cavecrew`, etc.) et agents `.claude/agents/cavecrew-*` :
   copiés depuis JuliusBrussee/caveman ; mise à jour via `scripts/update-caveman.sh`. N'active le mode
   `caveman` que sur demande explicite (`/caveman`).
+- `.claude/skills/brand-motion-design/` : skill copié depuis ouerf-man/brand-motion-design-skill ; mise à
+  jour via `scripts/update-brand-motion-design.sh`.
