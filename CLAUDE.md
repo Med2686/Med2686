@@ -18,5 +18,6 @@ Il veut un avis objectif et franc, sans flatterie.
 
 - `vendor/watermarks-remover/` : copie de guillaumemeyer/watermarks-remover ; mise à jour via
   `scripts/update-watermarks-remover.sh`.
-- `.claude/skills/caveman/` : skill copié depuis JuliusBrussee/caveman ; mise à jour via
-  `scripts/update-caveman.sh`. Ne l'active que sur demande explicite (`/caveman`).
+- Skills caveman (`.claude/skills/caveman*`, `cavecrew`, etc.) et agents `.claude/agents/cavecrew-*` :
+  copiés depuis JuliusBrussee/caveman ; mise à jour via `scripts/update-caveman.sh`. N'active le mode
+  `caveman` que sur demande explicite (`/caveman`).

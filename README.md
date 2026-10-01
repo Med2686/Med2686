@@ -57,13 +57,20 @@ La mise à jour automatique ouvre une PR à relire avant fusion ; rien n'est fus
 
 ## caveman
 
-Skill [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (licence Apache-2.0) : réponses
-ultra-compressées pour économiser des tokens de sortie. Seul le skill est copié, pas le reste du dépôt.
+Skills [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (licence Apache-2.0). Seuls les
+skills et les agents `cavecrew-*` sont copiés, pas le reste du dépôt (proxy, engine, CLI…).
 
 | Emplacement | Contenu |
 | --- | --- |
-| `.claude/skills/caveman/` | Le skill, avec `LICENSE`, `NOTICE` et la version copiée dans `UPSTREAM`. |
-| `scripts/update-caveman.sh` | Met à jour le skill (`scripts/update-caveman.sh [ref]`). |
+| `.claude/skills/caveman*`, `cavecrew`, `investigate-first`, `lean-build`, `migration`, `safe-refactor`, `surgical-patch`, `verify-and-stop` | Les 20 skills. La liste et la version copiée sont dans `.claude/skills/caveman/UPSTREAM`. |
+| `.claude/agents/cavecrew-*.md` | Les 3 sous-agents utilisés par le skill `cavecrew`. |
+| `scripts/update-caveman.sh` | Met à jour skills et agents (`scripts/update-caveman.sh [ref]`). |
 
-Activation : `/caveman` (niveaux `lite`, `full`, `ultra`), arrêt : « stop caveman » ou « normal mode ».
+| Skills | Fonctionnent ici ? |
+| --- | --- |
+| `caveman`, `caveman-help`, `caveman-commit`, `caveman-review`, `caveman-compress` (Python 3), `caveman-explore`, `cavecrew`, `investigate-first`, `lean-build`, `migration`, `safe-refactor`, `surgical-patch`, `verify-and-stop` | Oui, autonomes. |
+| `caveman-stats` | Partiellement : le rapport précis dépend de hooks caveman non installés. |
+| `caveman-setup`, `caveman-discover`, `caveman-evidence-review`, `caveman-manage`, `caveman-optimize`, `caveman-learn` | Non sans compte/outils Caveman Cloud ou CLI caveman. |
+
+Activation du mode compressé : `/caveman` (niveaux `lite`, `full`, `ultra`), arrêt : « stop caveman ».
 Les documents, commits et messages destinés à d'autres personnes restent rédigés normalement.
