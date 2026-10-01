@@ -54,3 +54,16 @@ scripts/update-watermarks-remover.sh v0.7.0 # ou une version précise
 ```
 
 La mise à jour automatique ouvre une PR à relire avant fusion ; rien n'est fusionné sans vous.
+
+## caveman
+
+Skill [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (licence Apache-2.0) : réponses
+ultra-compressées pour économiser des tokens de sortie. Seul le skill est copié, pas le reste du dépôt.
+
+| Emplacement | Contenu |
+| --- | --- |
+| `.claude/skills/caveman/` | Le skill, avec `LICENSE`, `NOTICE` et la version copiée dans `UPSTREAM`. |
+| `scripts/update-caveman.sh` | Met à jour le skill (`scripts/update-caveman.sh [ref]`). |
+
+Activation : `/caveman` (niveaux `lite`, `full`, `ultra`), arrêt : « stop caveman » ou « normal mode ».
+Les documents, commits et messages destinés à d'autres personnes restent rédigés normalement.
