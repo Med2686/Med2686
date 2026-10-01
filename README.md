@@ -88,3 +88,15 @@ crée un film motion design de marque (Reel, TikTok, vidéo de lancement…) en 
 Prérequis : Node.js 22+, FFmpeg, [uv](https://docs.astral.sh/uv/) ; HyperFrames est installé par projet
 (`npx hyperframes init`). Utilisation : demander par exemple « Fais un Reel de 20 secondes pour cette marque ».
 Les vidéos sont générées dans `videos/`.
+
+## grill-me (mattpocock/skills)
+
+Skills [mattpocock/skills](https://github.com/mattpocock/skills) (licence MIT) : `/grill-me` lance un
+interrogatoire serré pour éprouver un plan, une décision ou une idée, par rondes de questions numérotées,
+chacune avec une réponse recommandée.
+
+| Emplacement | Contenu |
+| --- | --- |
+| `.claude/skills/grill-me/` | Commande `/grill-me` (appel explicite uniquement), qui délègue à `grilling`. |
+| `.claude/skills/grilling/` | Le skill qui mène l'interrogatoire ; peut aussi se déclencher sur « grill ». |
+| `scripts/update-mattpocock-skills.sh` | Met à jour ces skills, ou en ajoute d'autres du même dépôt (`scripts/update-mattpocock-skills.sh <skill>...`). |

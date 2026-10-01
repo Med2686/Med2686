@@ -23,3 +23,5 @@ Il veut un avis objectif et franc, sans flatterie.
   `caveman` que sur demande explicite (`/caveman`).
 - `.claude/skills/brand-motion-design/` : skill copié depuis ouerf-man/brand-motion-design-skill ; mise à
   jour via `scripts/update-brand-motion-design.sh`.
+- `.claude/skills/grill-me/` et `grilling/` : copiés depuis mattpocock/skills ; mise à jour via
+  `scripts/update-mattpocock-skills.sh`.
