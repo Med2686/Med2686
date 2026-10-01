@@ -16,5 +16,10 @@ Il veut un avis objectif et franc, sans flatterie.
 
 ## Autres éléments du dépôt
 
+- `.claude/skills/meeting-insights-analyzer/` : analyse de transcriptions de réunion (posture, écoute,
+  évitement du conflit). Transcriptions à déposer dans `mission/transcriptions/` (ignoré par Git : ne
+  jamais les committer). Restituer l'analyse en français. Mise à jour via
+  `scripts/update-awesome-claude-skills.sh`.
+
 - `vendor/watermarks-remover/` : copie de guillaumemeyer/watermarks-remover ; mise à jour via
   `scripts/update-watermarks-remover.sh`.

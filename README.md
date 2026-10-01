@@ -54,3 +54,26 @@ scripts/update-watermarks-remover.sh v0.7.0 # ou une version précise
 ```
 
 La mise à jour automatique ouvre une PR à relire avant fusion ; rien n'est fusionné sans vous.
+
+## Skills tirés d'awesome-claude-skills
+
+Sélection issue de [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) (licence Apache-2.0).
+Seuls les skills utiles au poste de BA et sans doublon avec ceux déjà présents sont copiés.
+
+| Skill | Usage |
+| --- | --- |
+| `meeting-insights-analyzer` | Analyse vos transcriptions de réunion : temps de parole, interruptions, hésitations, évitement du conflit, qualité de l'écoute, avec des exemples cités et des formulations alternatives. |
+
+Déposez les transcriptions (Teams, Zoom : .vtt, .txt, .docx) dans `mission/transcriptions/`. Ce dossier est
+exclu de Git, car il contient des données client.
+
+Écartés volontairement : `internal-comms` (fait doublon avec le mentor et `ba-fonctionnel` pour les CR et
+points d'avancement, avec un format « startup » de type Slack), `content-research-writer` (pensé pour écrire
+des articles de blog), `document-skills` et `skill-creator` (déjà disponibles), et les intégrations
+`composio-skills` (elles passent par un service tiers).
+
+Pour ajouter un skill, ajoutez son nom au tableau `SKILLS` du script, puis lancez :
+
+```bash
+scripts/update-awesome-claude-skills.sh
+```
