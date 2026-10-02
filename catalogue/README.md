@@ -19,21 +19,22 @@ Fichier généré : ne pas modifier à la main.
 | --- | --- | --- | --- |
 | awesome-claude-skills | [https://github.com/ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills/tree/be2a406907dbc61b73e6827ded415c96139d13a2) | `be2a406907db` | Apache-2.0 |
 | ECC | [https://github.com/affaan-m/ECC](https://github.com/affaan-m/ECC/tree/ef648e01899ba3e8dc6371642deaaf64b4477775) | `ef648e01899b` | MIT |
+| mattpocock-skills | [https://github.com/mattpocock/skills](https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60) | `d81f3a183412` | MIT |
 
 ## Sommaire
 
-- [01-ba-specs-recette-produit](#01-ba-specs-recette-produit) (14)
-- [02-redaction-communication](#02-redaction-communication) (13)
+- [01-ba-specs-recette-produit](#01-ba-specs-recette-produit) (22)
+- [02-redaction-communication](#02-redaction-communication) (19)
 - [03-documents-bureautique](#03-documents-bureautique) (12)
-- [04-recherche-veille-analyse](#04-recherche-veille-analyse) (17)
+- [04-recherche-veille-analyse](#04-recherche-veille-analyse) (18)
 - [05-business-vente-marketing-finance](#05-business-vente-marketing-finance) (19)
 - [06-secteurs-metier](#06-secteurs-metier) (18)
-- [07-dev-langages-frameworks](#07-dev-langages-frameworks) (52)
-- [08-dev-tests-qualite](#08-dev-tests-qualite) (36)
+- [07-dev-langages-frameworks](#07-dev-langages-frameworks) (60)
+- [08-dev-tests-qualite](#08-dev-tests-qualite) (39)
 - [09-dev-architecture-api-donnees](#09-dev-architecture-api-donnees) (20)
-- [10-devops-infra-reseau](#10-devops-infra-reseau) (20)
-- [11-securite](#11-securite) (12)
-- [12-agents-ia-claude-code](#12-agents-ia-claude-code) (59)
+- [10-devops-infra-reseau](#10-devops-infra-reseau) (22)
+- [11-securite](#11-securite) (13)
+- [12-agents-ia-claude-code](#12-agents-ia-claude-code) (65)
 - [13-design-ui-medias](#13-design-ui-medias) (28)
 - [14-integrations-apps](#14-integrations-apps) (3)
 
@@ -48,13 +49,21 @@ Fichier généré : ne pas modifier à la main.
 | `contract-first` | ECC | Coordinate frontend/backend or service-to-service work through one authoritative machine-checkable contract (OpenAPI, AsyncAPI, Protocol Buffers, or JSON Sch… |
 | `council` | ECC | Convene a four-voice council for ambiguous decisions, tradeoffs, and go/no-go calls. Use when multiple valid paths exist and you need structured disagreement… |
 | `dev-team` | ECC | Simulate a collaborative dev team session where multiple role-based personas (PM, Architect, Developer, QA) respond to the same problem together in one sessi… |
+| `domain-modeling` | mattpocock-skills | Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR. |
+| `grill-with-docs` | mattpocock-skills | A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go. |
 | `jira-integration` | ECC | Use this skill when retrieving Jira tickets, analyzing requirements, updating ticket status, adding comments, or transitioning issues. Provides Jira API patt… |
 | `living-docs-governance` | ECC | Keep a long-lived project's documentation from rotting by assigning existing project docs clear constitution, map, status, and history roles, then wiring the… |
+| `loop-me` | mattpocock-skills | Grill me about specs for the workflows I want to build, within this workspace. |
 | `plan-canvas` | ECC | Open plans and HTML artifacts in a local browser canvas where the human annotates elements, chats, and approves or requests changes without leaving the page.… |
 | `product-capability` | ECC | Translate PRD intent, roadmap asks, or product discussions into an implementation-ready capability plan that exposes constraints, invariants, interfaces, and… |
 | `product-lens` | ECC | Validate the why before building through four product diagnostics — a YC-style product diagnostic that produces PRODUCT-BRIEF.md with a go/no-go recommendati… |
 | `project-flow-ops` | ECC | Operate execution flow across GitHub and Linear by triaging issues and pull requests, linking active work, and keeping GitHub public-facing while Linear rema… |
 | `recursive-decision-ledger` | ECC | Run repeated rollouts ("Prime Gauss" style recursive prompting) while keeping an append-only decision ledger of trials, marks, coherence checks, and promotio… |
+| `to-questionnaire` | mattpocock-skills | Turn a decision you can't fully answer into a questionnaire for someone else to fill in. |
+| `to-spec` | mattpocock-skills | Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed. |
+| `to-tickets` | mattpocock-skills | Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (… |
+| `triage` | mattpocock-skills | Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs. |
+| `wayfinder` | mattpocock-skills | Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time un… |
 
 ## 02-redaction-communication
 
@@ -71,8 +80,14 @@ Fichier généré : ne pas modifier à la main.
 | `internal-comms` | awesome-claude-skills | A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenev… |
 | `messages-ops` | ECC | Evidence-first live messaging workflow for ECC. Use when the user wants to read texts or DMs, recover a recent one-time code, inspect a thread before replyin… |
 | `operator-approval-loop` | ECC | Operator approval contract with internal filing notices for agent-drafted outbound messages, hashed drafts, epoch-keyed decisions, durable delivery claims an… |
+| `pr` | mattpocock-skills | Use when writing a PR body. |
 | `tailored-resume-generator` | awesome-claude-skills | Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances |
+| `teach` | mattpocock-skills | Teach the user a new skill or concept, within this workspace. |
 | `visa-doc-translate` | ECC | Translate visa document images (bank deposit, employment, income, and retirement certificates; HEIC, PNG, or JPG) into English via OCR and produce a bilingua… |
+| `wait-what` | mattpocock-skills | Stop. That last message did not land: re-pitch it. |
+| `writing-beats` | mattpocock-skills | Writing, exploit; assemble raw material into a journey of beats, grounding each term before a beat leans on it. |
+| `writing-fragments` | mattpocock-skills | Writing, explore: mine raw fragments, no structure yet. |
+| `writing-shape` | mattpocock-skills | Writing, exploit: shape raw material into an article, paragraph by paragraph. |
 
 ## 03-documents-bureautique
 
@@ -105,6 +120,7 @@ Fichier généré : ne pas modifier à la main.
 | `knowledge-ops` | ECC | Knowledge base management, ingestion, sync, and retrieval across multiple storage layers (local files, MCP memory, vector stores, Git repos). Use when the us… |
 | `market-research` | ECC | Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use… |
 | `prediction-market-oracle-research` | ECC | Research prediction markets as data sources or oracle signals for products, agents, dashboards, and corporate decision intelligence. Use for source-grounded… |
+| `research` | mattpocock-skills | Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched… |
 | `research-ops` | ECC | Evidence-first current-state research workflow for ECC. Use when the user wants fresh facts, comparisons, enrichment, or a recommendation built from current… |
 | `scientific-db-pubmed-database` | ECC | Direct PubMed and NCBI E-utilities search workflows for biomedical literature, MeSH queries, PMID lookup, citation retrieval, and API-backed literature monit… |
 | `scientific-db-uspto-database` | ECC | USPTO patent and trademark data workflow for official record lookup, PatentSearch queries, TSDR checks, assignment data, and reproducible IP research logs. U… |
@@ -168,6 +184,7 @@ Fichier généré : ne pas modifier à la main.
 | `angular-developer` | ECC | Generates Angular code and provides architectural guidance. Trigger when creating projects, components, or services, or for best practices on reactivity (sig… |
 | `bun-runtime` | ECC | Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support. |
 | `code-tour` | ECC | Create CodeTour `.tour` files — persona-targeted, step-by-step walkthroughs with real file and line anchors. Use for onboarding tours, architecture walkthrou… |
+| `codebase-design` | mattpocock-skills | Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a… |
 | `codehealth-mcp` | ECC | Real-time structural Code Health via CodeScene MCP — review before edits, verify score deltas after changes, gate commits and PRs. Use when reviewing code qu… |
 | `coding-standards` | ECC | Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framewo… |
 | `compose-multiplatform-patterns` | ECC | Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI. Use when… |
@@ -186,6 +203,9 @@ Fichier généré : ne pas modifier à la main.
 | `git-workflow` | ECC | Git workflow patterns including branching strategies, commit conventions, keeping history clean and readable, tidying local commits before merging, merge vs… |
 | `github-ops` | ECC | GitHub repository operations, automation, and management. Issue triage, PR management, CI/CD operations, release management, and security monitoring using th… |
 | `golang-patterns` | ECC | Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications. Use when writing or reviewing Go cod… |
+| `implement` | mattpocock-skills | Implement a piece of work based on a spec or set of tickets. |
+| `implement-spec` | mattpocock-skills | Implement the result of /to-spec and /to-tickets in code. |
+| `improve-codebase-architecture` | mattpocock-skills | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. |
 | `inherit-legacy-style` | ECC | Prevent AI style drift on legacy projects by scanning the codebase for implicit conventions, resolving conflicts with the operator one at a time, and writing… |
 | `java-coding-standards` | ECC | Java coding standards for Spring Boot and Quarkus services: naming, immutability, Optional usage, streams, exceptions, generics, CDI, reactive patterns, and… |
 | `jpa-patterns` | ECC | JPA/Hibernate patterns for entity design, relationships, query optimization, transactions, auditing, indexing, pagination, and pooling in Spring Boot. Use wh… |
@@ -195,12 +215,14 @@ Fichier généré : ne pas modifier à la main.
 | `kotlin-patterns` | ECC | Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety,… |
 | `laravel-patterns` | ECC | Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps. Use when bu… |
 | `laravel-plugin-discovery` | ECC | Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibi… |
+| `migrate-to-shoehorn` | mattpocock-skills | Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial… |
 | `nestjs-patterns` | ECC | NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends. Use… |
 | `nextjs-turbopack` | ECC | Next.js 16+ and Turbopack guidance — incremental Rust bundling, file-system caching, faster dev startup and HMR, Turbopack vs webpack tradeoffs, and the midd… |
 | `nodejs-keccak256` | ECC | Prevent Ethereum hashing bugs in JavaScript and TypeScript. Node's sha3-256 is NIST SHA3, not Ethereum Keccak-256, and silently breaks selectors, signatures,… |
 | `nuxt4-patterns` | ECC | Nuxt 4 app patterns for hydration safety, performance, route rules, lazy loading, and SSR-safe data fetching with useFetch and useAsyncData. Use when buildin… |
 | `perl-patterns` | ECC | Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications. Use when writing or reviewing modern Perl 5.36… |
 | `plankton-code-quality` | ECC | Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks. Use when setting up wri… |
+| `prototype` | mattpocock-skills | Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what… |
 | `python-patterns` | ECC | Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications. Use when writing or re… |
 | `quarkus-patterns` | ECC | Quarkus 3.x LTS architecture patterns with Camel for messaging, RESTful API design, CDI services, data access with Panache, and async processing. Use for Jav… |
 | `rails-patterns` | ECC | Ruby on Rails framework patterns for Rails 7.1+ and 8.x apps. Covers the directory contract, skinny controllers with service objects, form objects, query obj… |
@@ -208,6 +230,8 @@ Fichier généré : ne pas modifier à la main.
 | `react-patterns` | ECC | React 18/19 patterns including hooks discipline, server/client component boundaries, Suspense + error boundaries, form actions, data fetching, state manageme… |
 | `react-performance` | ECC | React and Next.js performance optimization patterns adapted from Vercel Engineering's React Best Practices (https://github.com/vercel-labs/agent-skills). Org… |
 | `rust-patterns` | ECC | Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications. Use when writing or r… |
+| `scaffold-exercises` | mattpocock-skills | Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create… |
+| `setup-ts-deep-modules` | mattpocock-skills | Wire dependency-cruiser into a TypeScript repo so each package is a deep module, with implementation hidden in subfolders and reachable only through its entr… |
 | `springboot-patterns` | ECC | Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend w… |
 | `swift-actor-persistence` | ECC | Thread-safe data persistence in Swift using actors — in-memory cache with file-backed storage, eliminating data races by design. Use when persisting data in… |
 | `swift-concurrency-6-2` | ECC | Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.… |
@@ -226,8 +250,10 @@ Fichier généré : ne pas modifier à la main.
 | `benchmark-optimization-loop` | ECC | Convert 'make it faster' requests into a bounded measured optimization loop — baseline first, generate one-hypothesis variants, benchmark each against a corr… |
 | `browser-qa` | ECC | Run automated post-deploy UI verification with a browser automation MCP (claude-in-chrome, Playwright, or Puppeteer): console-error and Core Web Vitals smoke… |
 | `canary-watch` | ECC | Use this skill to monitor and verify a deployed URL after releases — checks HTTP endpoints, SSE streams, static assets, console errors, and performance regre… |
+| `code-review` | mattpocock-skills | Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding sta… |
 | `cpp-testing` | ECC | Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers. |
 | `csharp-testing` | ECC | C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices. Use when writing or reviewing xU… |
+| `diagnosing-bugs` | mattpocock-skills | Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow. |
 | `django-tdd` | ECC | Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs. Use when writing Djang… |
 | `django-verification` | ECC | Run the full Django verification loop — environment check, mypy/ruff/black linting, migration safety, pytest with coverage targets, pip-audit and bandit secu… |
 | `e2e-testing` | ECC | Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies. Use when writing Playwr… |
@@ -253,6 +279,7 @@ Fichier généré : ne pas modifier à la main.
 | `springboot-tdd` | ECC | Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring. |
 | `springboot-verification` | ECC | Run the full Spring Boot verification loop — Maven or Gradle build, SpotBugs, PMD, and Checkstyle static analysis, unit and Testcontainers integration tests… |
 | `swift-protocol-di-testing` | ECC | Protocol-based dependency injection for testable Swift code — mock file system, network, and external APIs using focused protocols and Swift Testing. Use whe… |
+| `tdd` | mattpocock-skills | Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests. |
 | `tdd-workflow` | ECC | Test-driven development workflow: write a failing test first, watch it fail, implement the smallest change to green, then refactor with 80%+ coverage across… |
 | `verification-loop` | ECC | Run a six-phase verification of a Claude Code session's work — build, type check, lint, tests with coverage, security grep, and diff review — then produce a… |
 | `webapp-testing` | awesome-claude-skills | Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing… |
@@ -304,9 +331,11 @@ Fichier généré : ne pas modifier à la main.
 | `network-interface-health` | ECC | Diagnose interface errors, drops, CRCs, duplex mismatches, flapping, speed negotiation issues, and counter trends on routers, switches, and Linux hosts. Use… |
 | `opensource-pipeline` | ECC | Open-source pipeline: fork, sanitize, and package private projects for safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: '/openso… |
 | `repo-scan` | ECC | Bootstrap pointer that installs the external repo-scan skill from a pinned, reviewable commit. Use when repo-scan must be installed before running its cross-… |
+| `setup-pre-commit` | mattpocock-skills | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up… |
 | `terminal-opener` | ECC | Open an executable and its argument array in a visible terminal window through a reusable, shell-free launch plan with dry-run, JSON, capability detection, d… |
 | `terminal-ops` | ECC | Evidence-first repo execution workflow for ECC. Use when the user wants a command run, a repo checked, a CI failure debugged, or a narrow fix pushed with exa… |
 | `uncloud` | ECC | Use when managing an Uncloud cluster — deploying services, configuring Caddy ingress, adding static proxy routes for non-cluster devices, publishing ports, s… |
+| `wizard` | mattpocock-skills | Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or C… |
 
 ## 11-securite
 
@@ -315,6 +344,7 @@ Fichier généré : ne pas modifier à la main.
 | `defi-amm-security` | ECC | Security checklist for Solidity AMM contracts, liquidity pools, and swap flows. Covers reentrancy, CEI ordering, donation or inflation attacks, oracle manipu… |
 | `django-security` | ECC | Django security best practices, authentication, authorization, CSRF protection, SQL injection prevention, XSS prevention, and secure deployment configuration… |
 | `gateguard` | ECC | PreToolUse fact-forcing gate that denies the first Edit/Write/Bash (including MultiEdit) attempt until the agent presents concrete facts (importers, data sch… |
+| `git-guardrails-claude-code` | mattpocock-skills | Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent des… |
 | `laravel-security` | ECC | Laravel security best practices — authentication, authorization, Eloquent safety, CSRF, XSS prevention, API security, and secure deployment configurations. U… |
 | `llm-trading-agent-security` | ECC | Security patterns for autonomous trading agents with wallet or transaction authority. Covers prompt injection, spend limits, pre-send simulation, circuit bre… |
 | `perl-security` | ECC | Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlc… |
@@ -339,11 +369,13 @@ Fichier généré : ne pas modifier à la main.
 | `agentic-engineering` | ECC | Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing. Use when planning or executing engineering work that… |
 | `agentic-os` | ECC | Build persistent multi-agent operating systems on Claude Code. Covers kernel architecture, specialist agents, slash commands, file-based memory, scheduled au… |
 | `ai-first-engineering` | ECC | Engineering operating model for teams where AI agents generate a large share of implementation output. Use when setting team process, review gates, or owners… |
+| `ask-matt` | mattpocock-skills | Ask which skill or flow fits your situation. A router over the skills in this repo. |
 | `automation-audit-ops` | ECC | Evidence-first automation inventory and overlap audit workflow for ECC. Use when the user wants to know which jobs, hooks, connectors, MCP servers, or wrappe… |
 | `autonomous-agent-harness` | ECC | Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone… |
 | `autonomous-loops` | ECC | Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems. Retained for compatibil… |
 | `ck` | ECC | Persistent per-project memory for Claude Code (Context Keeper) driven by deterministic Node.js /ck commands: init, save, resume, info, list, forget, and v1-t… |
 | `claude-devfleet` | ECC | Orchestrate multi-agent coding tasks via Claude DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structur… |
+| `claude-handoff` | mattpocock-skills | Hand the current conversation off to a fresh background agent that picks up the work immediately. |
 | `config-gc` | ECC | Garbage collection for your Claude Code configuration. Periodically scans ~/.claude (skills, memory, hooks, permissions, MCP servers, caches) for redundant,… |
 | `configure-ecc` | ECC | Run the conversational ECC setup wizard inside the current harness: inventory the install, collect scope (user/project/local) and hook mode (off/minimal/stan… |
 | `context-budget` | ECC | Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized… |
@@ -362,6 +394,7 @@ Fichier généré : ne pas modifier à la main.
 | `enterprise-agent-ops` | ECC | Operational controls for long-lived or cloud-hosted agent systems — runtime lifecycle (start, pause, stop, restart), observability (logs, metrics, traces), l… |
 | `eval-harness` | ECC | Eval-driven development (EDD) framework for AI coding sessions — define capability and regression evals before coding, grade with code-based, model-based, ru… |
 | `gan-style-harness` | ECC | GAN-inspired Generator-Evaluator agent harness for building high-quality applications autonomously. Based on Anthropic's March 2026 harness design paper. Use… |
+| `handoff` | mattpocock-skills | Compact the current conversation into a handoff document for another agent to pick up. |
 | `hermes-imports` | ECC | Convert local Hermes operator workflows into sanitized ECC skills and release-pack artifacts. Use when preparing a Hermes workflow for public ECC reuse witho… |
 | `hookify-rules` | ECC | Create and configure hookify rules — markdown files with YAML frontmatter that match bash, file, prompt, or stop events by regex or conditions and show warn/… |
 | `iterative-retrieval` | ECC | Pattern for progressively refining context retrieval to solve the subagent context problem. Use when a subagent lacks the context it needs and retrieval must… |
@@ -374,8 +407,10 @@ Fichier généré : ne pas modifier à la main.
 | `plan-orchestrate` | ECC | Read a plan document, decompose it into steps, design a per-step agent chain from the ECC catalogue, and emit ready-to-paste /orchestrate custom prompts. Gen… |
 | `prompt-optimizer` | ECC | Analyze draft prompts, detect intent and missing context, match ECC commands, skills, and agents, and output a ready-to-paste optimized prompt with diagnosis… |
 | `ralphinho-rfc-pipeline` | ECC | Split an RFC into a multi-agent execution DAG — decompose into work units with dependencies and acceptance tests, run research, plan, implement, test, and re… |
+| `retro` | mattpocock-skills | Conduct a retrospective on a coding session. |
 | `rules-distill` | ECC | Scan skills to extract cross-cutting principles and distill them into rules — append, revise, or create new rule files. Use when the same principle keeps rec… |
 | `santa-method` | ECC | Multi-agent adversarial verification: two independent reviewers with the same rubric must both pass before output ships, with a fix-and-re-review convergence… |
+| `setup-matt-pocock-skills` | mattpocock-skills | Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the ot… |
 | `skill-comply` | ECC | Visualize whether skills, rules, and agent definitions are actually followed — auto-generates scenarios at 3 prompt strictness levels, runs agents, classifie… |
 | `skill-creator` | awesome-claude-skills | Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capa… |
 | `skill-scout` | ECC | Search existing local, marketplace, GitHub, and web skill sources before creating a new skill. Use when the user wants to create, build, fork, or find a skil… |
@@ -388,6 +423,7 @@ Fichier généré : ne pas modifier à la main.
 | `unified-memory` | ECC | Share durable, inspectable context and handoffs between Claude, Codex, Hermes, Cursor, OpenCode, and other agents through the local ECC Memory Vault. Use whe… |
 | `unified-notifications-ops` | ECC | Operate notifications as one ECC-native workflow across GitHub, Linear, desktop alerts, hooks, and connected communication surfaces. Use when the real proble… |
 | `workspace-surface-audit` | ECC | Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value ECC-native skills, hooks, agents,… |
+| `writing-for-agents` | mattpocock-skills | Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md. |
 
 ## 13-design-ui-medias
 

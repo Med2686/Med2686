@@ -78,8 +78,8 @@ scripts/update-selected-skills.sh
 
 ## Catalogue de skills inactifs
 
-`catalogue/` contient les quelque 320 autres skills d'awesome-claude-skills et d'ECC, rangés en 14
-catégories. Il y a aussi un lot de 832 intégrations Composio. Voir l'index : [`catalogue/README.md`](catalogue/README.md).
+`catalogue/` contient les quelque 360 autres skills d'awesome-claude-skills, d'ECC et de mattpocock/skills
+(hors `grill-me` et `grilling`, déjà installés), rangés en 14 catégories. Il y a aussi un lot de 832 intégrations Composio. Voir l'index : [`catalogue/README.md`](catalogue/README.md).
 
 **Claude Code ne les charge pas** : seuls ceux de `.claude/skills/` le sont. Les charger tous noierait le
 mentor et `ba-fonctionnel` parmi des centaines de skills de développement.

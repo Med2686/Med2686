@@ -22,9 +22,12 @@ SOURCES = [
     ("awesome-claude-skills", "https://github.com/ComposioHQ/awesome-claude-skills",
      "master", "Apache-2.0", [".", "document-skills"]),
     ("ECC", "https://github.com/affaan-m/ECC", "main", "MIT", ["skills"]),
+    ("mattpocock-skills", "https://github.com/mattpocock/skills", "main", "MIT",
+     ["skills/engineering", "skills/in-progress", "skills/misc", "skills/productivity"]),
 ]
-# Pas des skills utilisables : modèle vide, plugin sans SKILL.md.
-IGNORES = {"template-skill", "connect-apps-plugin"}
+# Exclus : pas des skills utilisables (modèle vide, plugin sans SKILL.md), ou déjà
+# installés par un autre script (grill-me, grilling : update-mattpocock-skills.sh).
+IGNORES = {"template-skill", "connect-apps-plugin", "grill-me", "grilling"}
 # Lot de ~830 skills quasi identiques : copié d'un bloc, sans détail dans l'index.
 LOTS = {"composio-skills"}
 A_CLASSER = "99-a-classer"
