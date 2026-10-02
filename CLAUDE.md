@@ -18,8 +18,12 @@ Il veut un avis objectif et franc, sans flatterie.
 
 - `.claude/skills/meeting-insights-analyzer/` : analyse de transcriptions de réunion (posture, écoute,
   évitement du conflit). Transcriptions à déposer dans `mission/transcriptions/` (ignoré par Git : ne
-  jamais les committer). Restituer l'analyse en français. Mise à jour via
-  `scripts/update-awesome-claude-skills.sh`.
+  jamais les committer). Restituer l'analyse en français.
+- `.claude/skills/intent-driven-development/` : rendre des exigences testables (critères d'acceptation
+  observables, revue d'une spec ou d'une US pour y trouver l'ambigu, l'invérifiable, le hors périmètre
+  non dit). Répartition : ce skill pour **analyser / challenger** des critères ; `ba-fonctionnel` pour
+  **rédiger le livrable** (US, SFD, cahier de recette). Restituer en français.
+- Ces deux skills viennent de dépôts tiers ; mise à jour via `scripts/update-selected-skills.sh`.
 
 - `vendor/watermarks-remover/` : copie de guillaumemeyer/watermarks-remover ; mise à jour via
   `scripts/update-watermarks-remover.sh`.

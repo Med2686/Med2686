@@ -55,25 +55,31 @@ scripts/update-watermarks-remover.sh v0.7.0 # ou une version précise
 
 La mise à jour automatique ouvre une PR à relire avant fusion ; rien n'est fusionné sans vous.
 
-## Skills tirés d'awesome-claude-skills
+## Skills tiers sélectionnés
 
-Sélection issue de [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) (licence Apache-2.0).
-Seuls les skills utiles au poste de BA et sans doublon avec ceux déjà présents sont copiés.
+Seuls les skills utiles au poste de BA et sans doublon avec ceux déjà présents sont copiés. La version
+copiée est notée dans le fichier `UPSTREAM` de chaque skill.
 
-| Skill | Usage |
-| --- | --- |
-| `meeting-insights-analyzer` | Analyse vos transcriptions de réunion : temps de parole, interruptions, hésitations, évitement du conflit, qualité de l'écoute, avec des exemples cités et des formulations alternatives. |
+| Skill | Source (licence) | Usage |
+| --- | --- | --- |
+| `meeting-insights-analyzer` | [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) (Apache-2.0) | Analyse vos transcriptions de réunion : temps de parole, interruptions, hésitations, évitement du conflit, qualité de l'écoute, avec des exemples cités et des formulations alternatives. |
+| `intent-driven-development` | [affaan-m/ECC](https://github.com/affaan-m/ECC) (MIT) | Transforme une demande floue en critères d'acceptation observables (scénario, action, résultat attendu, effet interdit, mode de vérification). Relit une spec ou une US existante pour y trouver ce qui est ambigu ou invérifiable, et sépare les règles métier des faits techniques. |
 
 Déposez les transcriptions (Teams, Zoom : .vtt, .txt, .docx) dans `mission/transcriptions/`. Ce dossier est
 exclu de Git, car il contient des données client.
 
-Écartés volontairement : `internal-comms` (fait doublon avec le mentor et `ba-fonctionnel` pour les CR et
-points d'avancement, avec un format « startup » de type Slack), `content-research-writer` (pensé pour écrire
-des articles de blog), `document-skills` et `skill-creator` (déjà disponibles), et les intégrations
-`composio-skills` (elles passent par un service tiers).
+Écartés volontairement :
+- awesome-claude-skills : `internal-comms` (fait doublon avec le mentor et `ba-fonctionnel` pour les CR et
+  points d'avancement, avec un format « startup » de type Slack), `content-research-writer` (pensé pour
+  écrire des articles de blog), `document-skills` et `skill-creator` (déjà disponibles), et les intégrations
+  `composio-skills` (elles passent par un service tiers).
+- ECC : le reste du dépôt. C'est un environnement complet pour développeurs (près de 300 skills de code,
+  avec des agents, hooks et règles qui modifient le comportement de Claude). L'installer en entier
+  noierait vos skills BA. `jira-integration` demande un jeton d'API Jira personnel ; chez un client,
+  c'est rarement autorisé, et le Jira est souvent inaccessible hors VPN.
 
-Pour ajouter un skill, ajoutez son nom au tableau `SKILLS` du script, puis lancez :
+Pour ajouter un skill, ajoutez une ligne au tableau `SELECTION` du script, puis lancez :
 
 ```bash
-scripts/update-awesome-claude-skills.sh
+scripts/update-selected-skills.sh
 ```
