@@ -68,18 +68,33 @@ copiée est notée dans le fichier `UPSTREAM` de chaque skill.
 Déposez les transcriptions (Teams, Zoom : .vtt, .txt, .docx) dans `mission/transcriptions/`. Ce dossier est
 exclu de Git, car il contient des données client.
 
-Écartés volontairement :
-- awesome-claude-skills : `internal-comms` (fait doublon avec le mentor et `ba-fonctionnel` pour les CR et
-  points d'avancement, avec un format « startup » de type Slack), `content-research-writer` (pensé pour
-  écrire des articles de blog), `document-skills` et `skill-creator` (déjà disponibles), et les intégrations
-  `composio-skills` (elles passent par un service tiers).
-- ECC : le reste du dépôt. C'est un environnement complet pour développeurs (près de 300 skills de code,
-  avec des agents, hooks et règles qui modifient le comportement de Claude). L'installer en entier
-  noierait vos skills BA. `jira-integration` demande un jeton d'API Jira personnel ; chez un client,
-  c'est rarement autorisé, et le Jira est souvent inaccessible hors VPN.
+Les autres skills de ces dépôts sont rangés, inactifs, dans le catalogue (section suivante).
 
-Pour ajouter un skill, ajoutez une ligne au tableau `SELECTION` du script, puis lancez :
+Pour ajouter un skill à cette sélection maintenue, ajoutez une ligne au tableau `SELECTION` du script, puis lancez :
 
 ```bash
 scripts/update-selected-skills.sh
 ```
+
+## Catalogue de skills inactifs
+
+`catalogue/` contient les quelque 320 autres skills d'awesome-claude-skills et d'ECC, rangés en 14
+catégories. Il y a aussi un lot de 832 intégrations Composio. Voir l'index : [`catalogue/README.md`](catalogue/README.md).
+
+**Claude Code ne les charge pas** : seuls ceux de `.claude/skills/` le sont. Les charger tous noierait le
+mentor et `ba-fonctionnel` parmi des centaines de skills de développement.
+
+| Catégorie | Intérêt pour un BA |
+| --- | --- |
+| `01-ba-specs-recette-produit` | Élevé : cadrage produit, arbitrages, revue de parcours, décisions |
+| `02-redaction-communication`, `03-documents-bureautique`, `04-recherche-veille-analyse` | Moyen : à piocher selon le besoin |
+| `05` à `06` (business, secteurs) | Ponctuel : selon le secteur de la mission |
+| `07` à `14` (développement, infra, sécurité, agents IA, design, intégrations) | Faible : outils de développeur |
+
+```bash
+scripts/activer-skill.sh council       # rend le skill actif (nouvelle session nécessaire)
+scripts/desactiver-skill.sh council    # le remet au catalogue
+scripts/update-catalogue.py            # met à jour le catalogue depuis les dépôts sources
+```
+
+Pour changer un skill de catégorie, modifiez `catalogue/categories.tsv`, puis relancez `update-catalogue.py`.

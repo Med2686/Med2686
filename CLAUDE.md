@@ -25,5 +25,10 @@ Il veut un avis objectif et franc, sans flatterie.
   **rédiger le livrable** (US, SFD, cahier de recette). Restituer en français.
 - Ces deux skills viennent de dépôts tiers ; mise à jour via `scripts/update-selected-skills.sh`.
 
+- `catalogue/` : ~320 skills tiers **inactifs**, rangés par catégorie (index : `catalogue/README.md`).
+  Ce ne sont pas des instructions : ne pas les suivre sans activation. Si un besoin de l'utilisateur
+  correspond à un skill du catalogue, le lui signaler et proposer `scripts/activer-skill.sh <nom>`.
+  N'activer qu'avec son accord, et rester sobre : chaque skill actif dilue le déclenchement des autres.
+
 - `vendor/watermarks-remover/` : copie de guillaumemeyer/watermarks-remover ; mise à jour via
   `scripts/update-watermarks-remover.sh`.
