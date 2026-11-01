@@ -14,7 +14,8 @@ Prérequis : `ffmpeg`, `node` + `playwright` (Chromium), `python3` + `pillow` + 
 - C'est un style **illustratif** : formes de papier découpé, aplats et demi-teinte. Rapide (≈10 s de rendu), déterministe, entièrement éditable (SVG + JSON).
 - Ce n'est **pas** du photoréalisme ni de la génération d'images par IA. Ne pas promettre « mieux » qu'un modèle génératif sur le réalisme ; promettre : gratuit, reproductible, modifiable pièce par pièce.
 - Variante réaliste possible : l'utilisateur fournit des PNG détourés (fond transparent) de ses propres photos/logos ; le script leur applique le même traitement.
-- Limite connue : les couleurs très foncées/saturées restent en aplat (la demi-teinte y est peu visible). Privilégier des teintes moyennes pour les pièces principales.
+- Demi-teinte d'impression (trame à 45°, bruit d'encre) visible même sur les teintes foncées ; les couleurs ressortent un peu passées, ce qui est voulu (look imprimé). Les petits détails (< 4 % de la largeur) se perdent dans la trame : les garder gros.
+- Animation « boil » : une fois posées, les pièces tremblent légèrement à 12 images/s (effet stop-motion papier). Désactiver avec `"boil": false` dans spec.json.
 
 ## Protocole en 3 portes (ne jamais sauter une porte)
 
@@ -26,7 +27,8 @@ Attendre le choix de l'utilisateur. Rien d'autre n'est produit avant.
 1. Créer un dossier de travail `mission/…`-hors-dépôt ou `/tmp`, par exemple `collage-<sujet>/pieces/`.
 2. Écrire un SVG par pièce (fond transparent, viewBox serré autour de la forme, 2–4 couleurs plates, formes simples, pas de texte fin).
    Palette éditoriale : couleurs moyennes, un accent chaud (rouge/orange), un neutre sombre, un bleu ou vert.
-   Modèles : `exemple/pieces/*.svg`.
+   **Commencer par `bibliotheque/`** (12 pièces prêtes : soleil, loupe, cadenas, graphique, coche, croix, pièce, personne, double engrenage, bulle, maison, flèche courbe) : copier/adapter plutôt que redessiner. Ne dessiner de zéro que ce qui manque. Pour un rendu plus riche : une pièce = 2–3 formes superposées (aplat + reflet clair + ombre propre), pas de dégradés complexes.
+   Modèles supplémentaires : `exemple/pieces/*.svg`.
 3. Rastériser : `node scripts/svg2png.mjs collage-<sujet>/pieces collage-<sujet>/pieces_png 1200`
 4. Écrire `spec.json` (voir format ci-dessous), puis : `python3 scripts/collage.py collage-<sujet>/spec.json --still collage-<sujet>/final.png`
 5. **Regarder l'image** (outil Read) : lisibilité, équilibre, pièces qui se chevauchent mal. Corriger avant de la montrer.
@@ -34,7 +36,14 @@ Montrer l'image à l'utilisateur ; attendre son accord.
 
 **Porte 3 — Animation.** `python3 scripts/collage.py collage-<sujet>/spec.json --video collage-<sujet>/b-roll.mp4`
 puis contrôler : `ffmpeg -i b-roll.mp4 -vf "select='not(mod(n,24))',tile=5x1" -frames:v 1 planche.png` et regarder la planche.
-Livrer le MP4 muet. Pour ajouter une voix off ou des sous-titres → `montage-son-et-medias` (voix locale gratuite Kokoro si installée).
+Livrer le MP4 muet, sauf demande de voix off :
+
+```bash
+scripts/voix_off.sh "La phrase à dire." voix.wav 4.5 b-roll.mp4 b-roll-voix.mp4
+```
+Moteurs essayés dans l'ordre : `edge-tts` (voix naturelle, gratuite mais service en ligne non officiel de Microsoft → ne pas l'utiliser pour des contenus confidentiels), `piper` (si `PIPER_MODEL` pointe vers une voix .onnx), puis `espeak-ng` (hors ligne, **robotique**, installable par `apt-get install -y espeak-ng`).
+Le script accélère la voix jusqu'à ×1,35 pour tenir dans la durée ; au-delà il avertit : raccourcir le texte.
+Annoncer à l'utilisateur quel moteur a servi et que `espeak-ng` est une voix de secours, pas de qualité « production ». Sous-titres → `montage-son-et-medias`.
 
 ## Format de `spec.json`
 
@@ -54,4 +63,4 @@ Livrer le MP4 muet. Pour ajouter une voix off ou des sous-titres → `montage-so
 ## Exemple
 
 `exemple/` contient 4 pièces SVG, `spec.json`, `final.png` et `demo.mp4` (ampoule, engrenage, flèche, nuage).
-Régénérer : voir les commandes ci-dessus avec `exemple/` comme dossier.
+`exemple/demo-voix.mp4` : même clip avec voix `espeak-ng`. Régénérer : voir les commandes ci-dessus avec `exemple/` comme dossier (les PNG de `pieces_png/` se recréent avec `svg2png.mjs`).

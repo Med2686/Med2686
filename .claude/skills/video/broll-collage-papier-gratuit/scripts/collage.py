@@ -26,25 +26,33 @@ def paper_bg(size, color, grain, seed=7):
     out = base + (n * 60 + fib * 40)[..., None] * grain * 6
     return Image.fromarray(np.clip(out, 0, 255).astype("uint8"), "RGB")
 
-def halftone(img, cell, strength=1.0):
-    """Demi-teinte couleur : points dont le rayon dépend de la saturation/obscurité."""
+def halftone(img, cell, strength=1.0, angle=45.0, seed=3):
+    """Demi-teinte d'impression : trame inclinée, points visibles même sur les teintes foncées,
+    léger bruit d'encre et décalage de registre (aspect sérigraphie)."""
     rgba = np.asarray(img.convert("RGBA"), np.float32)
     h, w, _ = rgba.shape
-    cw, ch = math.ceil(w / cell), math.ceil(h / cell)
-    small = np.asarray(img.convert("RGBA").resize((cw, ch), Image.BOX), np.float32)
-    big = np.asarray(Image.fromarray(small.astype("uint8"), "RGBA").resize((cw * cell, ch * cell), Image.NEAREST), np.float32)[:h, :w]
-    yy, xx = np.mgrid[0:h, 0:w]
-    u = ((xx % cell) + 0.5) / cell - 0.5
-    v = ((yy % cell) + 0.5) / cell - 0.5
-    dist = np.sqrt(u * u + v * v)
+    blur = np.asarray(img.convert("RGB").filter(ImageFilter.GaussianBlur(cell * 0.7)), np.float32) / 255
     px = rgba[..., :3] / 255
-    rgb = big[..., :3] / 255 * 0.45 + px * 0.55   # mélange moyenne de cellule / pixel : bords nets
-    dark = 1 - (0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]) * 0.75
-    r = 0.12 + 0.50 * np.sqrt(np.clip(dark, 0, 1)) * strength
-    dot = (dist < r)[..., None]
-    light = rgb * 0.18 + 0.82                      # fond de la pièce : couleur très éclaircie
-    out = np.where(dot, rgb * 0.97, light)
-    res = np.dstack([out * 255, rgba[..., 3]])     # alpha d'origine
+    src = blur * 0.55 + px * 0.45                      # couleur du point : lissée, bords préservés
+    luma = 0.299 * blur[..., 0] + 0.587 * blur[..., 1] + 0.114 * blur[..., 2]
+    # relever les tons très sombres : sinon les points fusionnent en aplat
+    dark = np.clip(1 - luma, 0, 1) ** 0.85
+    dark = 0.10 + 0.78 * dark
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    th = math.radians(angle)
+    xr = (xx * math.cos(th) + yy * math.sin(th)) / cell
+    yr = (-xx * math.sin(th) + yy * math.cos(th)) / cell
+    u = (xr % 1.0) - 0.5; v = (yr % 1.0) - 0.5
+    dist = np.sqrt(u * u + v * v)
+    r = (0.08 + 0.42 * np.sqrt(dark)) * strength       # rayon max 0,50 -> 78 % de couverture, jamais plein
+    r = np.minimum(r, 0.47)
+    edge = np.clip((r - dist) * cell * 1.6 + 0.5, 0, 1)[..., None]   # bord de point anti-aliasé
+    rng = np.random.default_rng(seed)
+    ink = 1 + (rng.normal(0, 0.035, (h, w)).astype(np.float32))[..., None]
+    dot_rgb = np.clip(src * 0.92 * ink, 0, 1)
+    base = src * 0.20 + 0.80                            # papier de la pièce : couleur très éclaircie
+    out = base * (1 - edge) + dot_rgb * edge
+    res = np.dstack([out * 255, rgba[..., 3]])
     return Image.fromarray(np.clip(res, 0, 255).astype("uint8"), "RGBA")
 
 def paper_cut(img, edge, seed):
@@ -67,7 +75,7 @@ def ease_out_cubic(t): return 1 - (1 - t) ** 3
 def clamp(x): return max(0.0, min(1.0, x))
 
 def prepare(spec, base_dir):
-    W, H = spec["size"]; cell = spec.get("halftone_cell", max(3, W // 300))
+    W, H = spec["size"]; cell = spec.get("halftone_cell", max(3, W // 280))
     prepared = []
     for i, L in enumerate(spec["layers"]):
         im = Image.open(base_dir / L["src"]).convert("RGBA")
@@ -81,12 +89,16 @@ def prepare(spec, base_dir):
 def frame(spec, prepared, bg, t):
     W, H = spec["size"]
     out = bg.copy().convert("RGBA")
-    for L, (piece, shadow) in zip(spec["layers"], prepared):
+    for idx, (L, (piece, shadow)) in enumerate(zip(spec["layers"], prepared)):
         d0, dur = L.get("delay", 0.0), L.get("dur", 0.7)
         p = clamp((t - d0) / dur)
         if p <= 0: continue
         cx, cy = L.get("x", 0.5) * W, L.get("y", 0.5) * H
         rot = L.get("rot", 0.0)
+        if spec.get("boil", True) and p >= 1.0:
+            k = int(t * 12) + idx * 7
+            rot += math.sin(k * 2.399) * 0.9
+            cx += math.sin(k * 1.7) * W * 0.0016; cy += math.cos(k * 2.1) * H * 0.0016
         enter = L.get("enter", "scale")
         e, eb = ease_out_cubic(p), ease_out_back(p)
         dx = dy = 0.0; sc = 1.0; extra_rot = 0.0; alpha = 1.0
