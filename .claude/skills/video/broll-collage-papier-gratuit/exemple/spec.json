@@ -1,0 +1,7 @@
+{"size":[1280,720],"fps":24,"duration":5,"background":"#efe6d2","grain":0.05,
+ "layers":[
+  {"src":"pieces_png/nuage.png","x":0.80,"y":0.20,"width":0.26,"rot":4,"enter":"right","delay":0.0,"dur":0.8},
+  {"src":"pieces_png/engrenage.png","x":0.25,"y":0.62,"width":0.24,"rot":-8,"enter":"spin","delay":0.5,"dur":0.9},
+  {"src":"pieces_png/ampoule.png","x":0.50,"y":0.50,"width":0.20,"rot":5,"enter":"drop","delay":1.1,"dur":0.9},
+  {"src":"pieces_png/fleche.png","x":0.76,"y":0.68,"width":0.28,"rot":-12,"enter":"left","delay":1.9,"dur":0.8}
+ ]}

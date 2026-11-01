@@ -55,7 +55,7 @@ Aucun rendu long ni appel à une API payante (HeyGen, Gemini) sans accord de l'u
 | Images, icônes, logos, avatar, vidéo générée | `montage-son-et-medias/SKILL.md` |
 | Marque / maquette Figma → vidéo | `video-depuis-figma/SKILL.md` |
 | Clip produit/skill 10–60 s, motion haut de gamme, sans HyperFrames | `clip-produit-motion-pro/SKILL.md` |
-| B-roll collage papier demi-teinte (phrase de 5 s) | `broll-collage-papier-vox/SKILL.md` **ou** `broll-collage-papier-gbro/SKILL.md` — en proposer un seul |
+| B-roll collage papier demi-teinte (phrase de 5 s), gratuit et local | `broll-collage-papier-gratuit/SKILL.md` |
 | Film en code dans un style nommé (huile, aquarelle, ukiyo-e, démontage…) | `film-en-code-styles-artistiques/SKILL.md` |
 | Présentation HTML projetée en direct | `presentation-en-direct/SKILL.md` |
 
@@ -69,7 +69,7 @@ Aucun rendu long ni appel à une API payante (HeyGen, Gemini) sans accord de l'u
 ## Limites à annoncer honnêtement
 
 - Il n'existe **pas** d'éditeur de montage interactif : la coupe/le montage passent par ffmpeg et les scripts de `montage-son-et-medias`.
-- Prérequis : Node.js, ffmpeg, Chrome/Chromium ; `GEMINI_API_KEY` pour les skills de collage ; compte HeyGen pour une partie de `montage-son-et-medias` (voix, avatar).
+- Prérequis : Node.js, ffmpeg, Chrome/Chromium  ; compte HeyGen pour une partie de `montage-son-et-medias` (voix, avatar).
 - `clip-produit-motion-pro` (onetake) : licence PolyForm Noncommercial — prévenir avant tout usage client/commercial.
 - Rien de tout cela n'a été exécuté dans ce dépôt : annoncer les échecs tels quels. Vérifier qu'un fichier existe avant de promettre son contenu.
 
@@ -86,8 +86,12 @@ Aucun rendu long ni appel à une API payante (HeyGen, Gemini) sans accord de l'u
 | `refaire-une-video-existante` | reverse-any-video | Reconstruire une vidéo en projet éditable |
 | `presentation-en-direct` | slideshow | Diaporama HTML présenté en direct |
 | `clip-produit-motion-pro` | onetake | Clip produit 10–60 s au motion soigné (licence non commerciale) |
-| `broll-collage-papier-vox` | VOX-COLLAGE-BROLL | B-roll collage papier, anglais, modèle Gemini verrouillé |
-| `broll-collage-papier-gbro` | gbro-collage-broll | B-roll collage papier, chinois/français, écrit pour Codex |
+| `broll-collage-papier-gratuit` | créé ici | B-roll collage papier animé, 100 % local et gratuit (remplace VOX-COLLAGE-BROLL et gbro-collage-broll, supprimés car payants) |
 | `film-en-code-styles-artistiques` | lemo-opuscar | Film dans un style nommé (huile, aquarelle, ukiyo-e…) |
 
 Le champ `name:` dans chaque `SKILL.md` interne est resté celui d'origine (pour pouvoir réimporter une mise à jour amont).
+
+## Règle « gratuit d'abord »
+
+Ne jamais déclencher d'abord une option payante. Par défaut : voix locale (Kokoro), images/logos gratuits ou fournis par l'utilisateur,
+vidéo locale. HeyGen (voix premium, avatar, images/vidéo générées) uniquement si l'utilisateur le demande explicitement, après l'avoir prévenu du coût.
