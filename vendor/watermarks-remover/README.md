@@ -46,6 +46,8 @@ python3 install_skill.py --skill remove-ai-marks --target claude-code
 | --- | --- | --- |
 | Claude Code (personal) | `--target claude-code` | `~/.claude/skills/<skill>` (honors `CLAUDE_CONFIG_DIR`) |
 | Claude Code (project) | `--target claude-project --project-dir PATH` | `PATH/.claude/skills/<skill>` |
+| Codex (personal) | `--target codex` | `~/.agents/skills/<skill>` |
+| Codex (project) | `--target codex-project --project-dir PATH` | `PATH/.agents/skills/<skill>` |
 | Cowork, claude.ai, cloud sessions, routines | `--target cowork` | `dist/<skill>.zip` to upload under **Customize → Skills** |
 | Cursor | `--target cursor` (default) | `~/.cursor/skills/<skill>` |
 
@@ -64,6 +66,31 @@ and the Skills API enforce: spec-only frontmatter (`name`, `description`,
 `name` of at most 64 characters matching the directory, a non-empty
 `description` of at most 1024 characters. The Cowork bundle additionally has
 to fit the 30 MB upload limit, which the packager enforces.
+
+### Codex terminal and desktop
+
+Install either shipped skill for your user, or install one into a particular
+project:
+
+```bash
+python3 install_skill.py --skill remove-ai-marks --target codex
+python3 install_skill.py --skill clean-user-facing-text --target codex
+python3 install_skill.py --skill remove-ai-marks --target codex-project --project-dir /path/to/project
+```
+
+On Windows, use `py` in place of `python3`. Open the project in Codex. In the
+terminal, use `/skills` or type `$` to select a skill; in the desktop app,
+select or mention the skill in your prompt. Restart Codex if the new skill does
+not appear. The project install is available when Codex runs in that project.
+
+For `remove-ai-marks`, start the existing HTTP service from this repository
+with `make serve` before using the skill (or on Windows without `make`, run
+`py service/scripts/server.py --host 127.0.0.1 --port 8765`). It uses
+`WATERMARKS_SERVICE_URL` (default `http://127.0.0.1:8765`), checks `/health`,
+and calls the existing `/inspect` and `/clean` endpoints. If the service
+requires an API key, set `WATERMARKS_SERVER_API_KEY` for the client.
+`clean-user-facing-text` is
+self-contained and does not need the service.
 
 ### Automatic cleaning via hook (deterministic)
 
@@ -1011,7 +1038,7 @@ Layer B makes sense when you specifically want the premium model's **thinking an
 | TIFF (classic + BigTIFF) | IFD tags: XMP, EXIF, GPS, IPTC, MakerNote | Drop tags, zero payloads, keep strips |
 | SVG | `<metadata>`, XMP | Strip blocks |
 | PDF | Byte/XMP + optional tools | **exiftool** then **qpdf**, then **ghostscript** for metadata inside embedded images; each missing tool degrades a different layer (document strip, structural rewrite, embedded images) |
-| DOCX | docProps / customXml | Scrub props, drop customXml |
+| DOCX / XLSX / PPTX | docProps / customXml / Office web-extension properties and references | Scrub props, drop customXml and webextensions parts, remove their content-type overrides and dangling relationships; refuse cleaning while an Office owner file is present |
 | EPUB | OPF metadata, XHTML meta/JSON-LD, embedded media | Scrub OPF, strip XHTML meta, clean media + Layer A (skips encrypted parts) |
 | ODT | meta.xml | Drop generator / AI-ish meta |
 | HTML | meta, JSON-LD, data-ai*, `<!-- -->` comments naming an AI tool or marked AI-generated / C2PA / content credential | Strip tags/attrs/comments |
@@ -1302,6 +1329,7 @@ v0.7.0 brings the Layer B statistical-mark rewrite into the `/clean` service its
 
 ### Unreleased
 
+- **OOXML add-in metadata**: inspect Office web-extension vendor properties and references in DOCX, XLSX, and PPTX, then remove their package parts and dangling relationships; refuse cleaning while a matching Office owner file exists.
 - Pre-commit clean hook (`watermarks-remover-clean` / `clean_staged.py`): use content digests (`SHA-256`) and active action detection so clean files on disk are recognized without demanding infinite re-staging (#173)
 - **OOXML container preservation**: keep `<AppVersion>` intact in `docProps/app.xml` during DOCX, XLSX, and PPTX metadata cleaning to satisfy ECMA-376 schema constraints and avoid Microsoft Word/Office "unreadable content" errors (#283)
 
