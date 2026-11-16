@@ -98,3 +98,9 @@ scripts/update-catalogue.py            # met à jour le catalogue depuis les dé
 ```
 
 Pour changer un skill de catégorie, modifiez `catalogue/categories.tsv`, puis relancez `update-catalogue.py`.
+
+## Projets perso
+
+`perso/` contient des projets hors mission, **inactifs** (non chargés par Claude Code).
+
+- `perso/claude-video-styles/` : copie de msraoudh/claude-video-styles (15 styles de montage vidéo + coupe de talking-head). Source et commit dans `SOURCE.txt`. Installation prévue sur un PC Windows, voir son `README.md`.

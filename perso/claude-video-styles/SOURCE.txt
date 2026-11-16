@@ -1,0 +1,4 @@
+Source : https://github.com/msraoudh/claude-video-styles
+Commit : beef2bf52c61eee3775796c136f337b8fbf6f764
+Copié le : 2026-11-16
+Statut : projet perso, inactif (non chargé par Claude Code)

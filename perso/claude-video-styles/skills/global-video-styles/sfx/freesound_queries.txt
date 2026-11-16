@@ -1,0 +1,133 @@
+# Freesound CC0 queries for video editing (python sfx_fetch.py freesound-file ../sfx/freesound_queries.txt --n 20)
+# transitions / movement
+whoosh
+swoosh
+swipe
+whip
+air whoosh
+cinematic whoosh
+fast whoosh
+fire whoosh
+reverse cymbal
+riser
+downlifter
+swell
+transition
+slide
+reveal
+rewind
+tape stop
+# impacts / low end
+impact
+hit
+boom
+sub drop
+bass drop
+thud
+punch
+low hit
+cinematic boom
+trailer hit
+braam
+stinger
+metal hit
+wood knock
+stamp
+door slam
+explosion
+domino
+falling
+# digital / UI
+glitch
+digital
+data processing
+computer beeps
+server room
+UI click
+button click
+toggle switch
+mouse click
+keyboard typing
+typing
+typewriter
+beep
+pop
+bubble pop
+notification
+message notification
+phone vibration
+ding
+success
+error
+error beep
+correct answer
+wrong buzzer
+level up
+coin
+cash register
+money
+camera shutter
+camera flash
+# texture / paper / office
+paper
+page turn
+paper crumple
+pen writing
+scribble
+marker
+scissors
+stapler
+# fx / magic
+magic
+sparkle
+shimmer chime
+tada
+power up
+power down
+electricity
+electric zap
+laser
+hologram
+sci-fi interface
+static noise
+radio tuning
+record scratch
+vinyl crackle
+# human / reactions
+crowd
+crowd cheer
+applause
+laugh
+gasp
+wow
+finger snap
+clap
+heartbeat
+breath
+# time / tension
+clock tick
+ticking
+countdown
+tension
+suspense drone
+drum roll
+cymbal crash
+gong
+cartoon boing
+fail trombone
+# top-up 2026-11-14 (alternatives for queries that had few CC0 one-shots)
+computer data
+server
+computer beep
+cinematic hit
+cinematic impact
+inception horn
+dark drone
+trombone
+level complete
+chime
+zap
+radio static
+glitch transition
+bass hit
+lifter

@@ -1,0 +1,13 @@
+# Python 3.12, Windows. Install into %USERPROFILE%\.venvs\claude-video
+numpy<2.1
+scipy
+soundfile
+librosa
+Pillow
+faster-whisper
+onnxruntime
+mediapipe
+opencv-python
+# CUDA libraries for faster-whisper on an NVIDIA GPU (skip on a PC without NVIDIA; it then runs on the CPU, slower)
+nvidia-cublas-cu12
+nvidia-cudnn-cu12==9.*
