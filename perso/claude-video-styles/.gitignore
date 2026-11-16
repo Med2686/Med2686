@@ -1,0 +1,13 @@
+# third-party sound files are downloaded on each PC, never committed (licences: see sfx/LICENSES.md)
+skills/global-video-styles/sfx/library/
+skills/global-video-styles/sfx/packs/
+skills/global-video-styles/sfx/refs/
+skills/global-video-styles/sfx/bank/_shortlist/
+skills/global-video-styles/sfx/bank/*.wav
+!skills/global-video-styles/sfx/bank/counter_roll.wav
+!skills/global-video-styles/sfx/bank/stamp.wav
+*.log
+__pycache__/
+*.pyc
+.venv/
+node_modules/

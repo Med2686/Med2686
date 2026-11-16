@@ -1,0 +1,114 @@
+{
+ "scene_in_riser": {
+  "file": "scene_in_riser.wav",
+  "from": "mixkit/mixkit-1490-fast-whoosh-transition",
+  "title": "Fast whoosh transition",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/whoosh/",
+  "use": "into a fluted scene (bridge-dot dissolve)"
+ },
+ "scene_out_whoosh": {
+  "file": "scene_out_whoosh.wav",
+  "from": "mixkit/mixkit-2625-fast-air-zoom",
+  "title": "Fast air zoom",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/zoom/",
+  "use": "back to the speaker"
+ },
+ "card_ping": {
+  "file": "card_ping.wav",
+  "from": "mixkit/mixkit-2573-interface-option-select",
+  "title": "Interface option select",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/interface/",
+  "use": "card / plate lands"
+ },
+ "node_tick": {
+  "file": "node_tick.wav",
+  "from": "mixkit/mixkit-2568-cool-interface-click-tone",
+  "title": "Cool interface click tone",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/click/",
+  "use": "comet reaches a node / chip pops"
+ },
+ "dive_whoosh": {
+  "file": "dive_whoosh.wav",
+  "from": "mixkit/mixkit-2637-fast-air-transition-sweep",
+  "title": "Fast air transition sweep",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/woosh/",
+  "use": "dive into a thumbnail / fly-over"
+ },
+ "glass_sparkle": {
+  "file": "glass_sparkle.wav",
+  "from": "mixkit/mixkit-871-fairy-magic-sparkle",
+  "title": "Fairy magic sparkle",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/sparkle/",
+  "use": "Violet card/ribbon appears"
+ },
+ "click_smear": {
+  "file": "click_smear.wav",
+  "from": "mixkit/mixkit-174-fast-sweep-transition",
+  "title": "Fast sweep transition",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/swoosh/",
+  "use": "Violet button click smear"
+ },
+ "ui_blip": {
+  "file": "ui_blip.wav",
+  "from": "mixkit/mixkit-1127-interface-click-hover",
+  "title": "Interface click hover",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/click/?page=2",
+  "use": "quiet UI blip (bars, nodes)"
+ },
+ "click": {
+  "file": "click.wav",
+  "from": "mixkit/mixkit-3124-modern-technology-select",
+  "title": "Modern technology select",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/click/",
+  "use": "button press"
+ },
+ "typing": {
+  "file": "typing.wav",
+  "from": "mixkit/mixkit-1393-smartphone-typing",
+  "title": "Smartphone typing",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/type/",
+  "use": "search bar / terminal typing"
+ },
+ "counter_roll": {
+  "file": "counter_roll.wav",
+  "from": "synth:roll",
+  "title": "synth:roll",
+  "license": "own (procedural)",
+  "page": "",
+  "use": "number rolling"
+ },
+ "stamp": {
+  "file": "stamp.wav",
+  "from": "synth:stamp",
+  "title": "synth:stamp",
+  "license": "own (procedural)",
+  "page": "",
+  "use": "stamp slam"
+ },
+ "word_prelap": {
+  "file": "word_prelap.wav",
+  "from": "reversed mixkit/mixkit-3115-fast-transitions-swoosh",
+  "title": "Fast transitions swoosh (reversed, ends on the hit)",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/swoosh/",
+  "use": "ends on a chrome word (1 in 3 max)"
+ },
+ "violet_whoomp": {
+  "file": "violet_whoomp.wav",
+  "from": "synth whoomp + mixkit/mixkit-2625-fast-air-zoom",
+  "title": "Sub swell + air zoom",
+  "license": "own synth + Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/zoom/",
+  "use": "Violet Glass streak transition"
+ }
+}

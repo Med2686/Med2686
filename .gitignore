@@ -1,0 +1,6 @@
+__pycache__/
+*.py[co]
+.env
+
+# Transcriptions de réunions (données client) : jamais dans le dépôt
+mission/transcriptions/
