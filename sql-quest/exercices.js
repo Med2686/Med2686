@@ -88,6 +88,43 @@ window.EXERCICES = [
 
   /* ---------------- Niveau 2 : SQL ---------------- */
   {
+    id: "AT-1", niveau: 1, type: "assemblage", tables: ["cas_test"], ordered: false, atelier: true,
+    titre: "Assemble : les KO de la campagne 2",
+    situation: "Le responsable de la campagne 2 veut la liste de ses **cas de test KO**, avec leur numéro, leur titre et le testeur.",
+    question: "Construis la requête avec les blocs. Colonnes demandées, **dans cet ordre** : `id`, `titre`, `testeur`. Cas de la campagne 2 dont le résultat est `KO`.",
+    slots: [
+      { k: "select", label: "SELECT", multi: true },
+      { k: "from", label: "FROM", multi: false },
+      { k: "where", label: "WHERE", multi: true, sep: " AND " }
+    ],
+    chips: [
+      { t: "id", s: "select" }, { t: "titre", s: "select" }, { t: "testeur", s: "select" }, { t: "resultat", s: "select" }, { t: "campagne_id", s: "select" },
+      { t: "cas_test", s: "from" }, { t: "anomalies", s: "from" },
+      { t: "campagne_id = 2", s: "where" }, { t: "resultat = 'KO'", s: "where" }, { t: "resultat = 'OK'", s: "where" }, { t: "campagne_id = 3", s: "where" }
+    ],
+    indices: ["Il y a **deux** conditions à poser dans WHERE : la campagne et le résultat.", "Les blocs de colonnes se posent dans l'ordre demandé : id, puis titre, puis testeur."],
+    solution: "SELECT id, titre, testeur\nFROM cas_test\nWHERE campagne_id = 2 AND resultat = 'KO';",
+    explication: "Une requête de lecture se compose toujours des mêmes blocs, dans le même ordre : **SELECT** (quoi afficher), **FROM** (dans quelle table), **WHERE** (quelles lignes garder). Les conditions du WHERE se cumulent avec `AND` : il faut que **toutes** soient vraies. Les blocs « pièges » (`resultat = 'OK'`, `campagne_id = 3`) donnaient une requête valide mais qui répondait à une autre question : une requête qui s'exécute n'est pas forcément la bonne."
+  },
+  {
+    id: "OR-1", niveau: 2, type: "ordre", tables: ["cas_test"], atelier: true,
+    titre: "Dans quel ordre le moteur lit-il ma requête ?",
+    situation: "Tu écris une requête dans l'ordre `SELECT … FROM … WHERE …`. Mais le moteur, lui, ne l'exécute **pas** dans cet ordre. C'est la clé pour comprendre la plupart des erreurs de débutant.",
+    question: "Remets dans l'**ordre d'exécution** les 7 étapes d'une requête complète, de la première exécutée à la dernière.",
+    items: [
+      { t: "FROM / JOIN", d: "Prend les tables et fait les jointures : on constitue la matière première." },
+      { t: "WHERE", d: "Garde seulement les lignes qui remplissent la condition (avant tout regroupement)." },
+      { t: "GROUP BY", d: "Fait des paquets de lignes (un par valeur de la colonne de regroupement)." },
+      { t: "HAVING", d: "Filtre les paquets, donc peut utiliser COUNT, SUM, etc." },
+      { t: "SELECT", d: "Calcule les colonnes à afficher et leurs alias." },
+      { t: "ORDER BY", d: "Trie le résultat (peut utiliser les alias du SELECT)." },
+      { t: "LIMIT", d: "Ne garde que les n premières lignes, en dernier." }
+    ],
+    melange: [4, 0, 5, 2, 6, 1, 3],
+    correction: "L'ordre exécuté est : **FROM / JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT**.",
+    explication: "Ce que ça explique concrètement :\n\n- On ne peut pas utiliser un **alias** défini dans le `SELECT` dans le `WHERE` : au moment du `WHERE`, le `SELECT` n'a pas encore été calculé (en revanche, `ORDER BY` peut l'utiliser).\n- On ne peut pas écrire `WHERE COUNT(*) > 3` : les paquets n'existent pas encore au moment du `WHERE`. Il faut `HAVING`.\n- `LIMIT` arrive en dernier : on trie d'abord tout, puis on garde les premières lignes.\n\nRéflexe : quand une requête échoue ou donne un résultat étonnant, relis-la **dans l'ordre d'exécution**, pas dans l'ordre d'écriture."
+  },
+  {
     id: "N2-1", niveau: 2, type: "sql", tables: ["cas_test"],
     titre: "Combien de cas KO ?",
     situation: "Le chef de projet veut un chiffre : **combien de cas de test sont KO** ?",
@@ -132,6 +169,64 @@ window.EXERCICES = [
   },
 
   /* ---------------- Niveau 3 : SQL ---------------- */
+  {
+    id: "AT-2", niveau: 2, type: "assemblage", tables: ["anomalies"], ordered: true, atelier: true,
+    titre: "Assemble : anomalies par sévérité",
+    situation: "Le chef de projet veut la **répartition des anomalies par sévérité**, de la plus fréquente à la moins fréquente (en cas d'égalité, ordre alphabétique de la sévérité).",
+    question: "Construis la requête. Attention : certaines colonnes existent en **deux exemplaires** (une pour SELECT, une pour GROUP BY) : c'est voulu, la règle est que toute colonne affichée qui n'est pas un calcul doit aussi être regroupée.",
+    slots: [
+      { k: "select", label: "SELECT", multi: true },
+      { k: "from", label: "FROM", multi: false },
+      { k: "group", label: "GROUP BY", multi: true },
+      { k: "order", label: "ORDER BY", multi: true }
+    ],
+    chips: [
+      { t: "severite", s: "select" }, { t: "COUNT(*) AS nb", s: "select" }, { t: "statut", s: "select" }, { t: "AVG(id)", s: "select" },
+      { t: "anomalies", s: "from" }, { t: "cas_test", s: "from" },
+      { t: "severite", s: "group" }, { t: "statut", s: "group" },
+      { t: "nb DESC", s: "order" }, { t: "nb ASC", s: "order" }, { t: "severite", s: "order" }
+    ],
+    indices: ["On affiche la sévérité **et** le nombre d'anomalies : deux blocs dans SELECT.", "Le tri se fait en deux critères : `nb DESC` d'abord, puis `severite` pour départager."],
+    solution: "SELECT severite, COUNT(*) AS nb\nFROM anomalies\nGROUP BY severite\nORDER BY nb DESC, severite;",
+    explication: "`GROUP BY severite` fait un paquet par sévérité ; `COUNT(*)` compte alors **dans chaque paquet**. Si tu avais affiché `statut` sans le regrouper, la base ne saurait pas quelle valeur montrer pour un paquet qui en contient plusieurs (certains moteurs refusent, d'autres, comme SQLite, renvoient une valeur au hasard : pire). L'alias `nb` est utilisable dans `ORDER BY` parce que le tri est exécuté **après** le `SELECT` (voir OR-1)."
+  },
+  {
+    id: "AT-3", niveau: 2, type: "assemblage", tables: ["cas_test"], ordered: false, atelier: true,
+    titre: "Assemble : campagnes avec au moins 4 KO",
+    situation: "On te demande **quelles campagnes ont au moins 4 cas KO**, avec le nombre de KO.",
+    question: "Construis la requête. Colonnes : `campagne_id`, puis le nombre de KO sous l'alias `nb_ko`. Essaie de poser `COUNT(*) >= 4` dans la mauvaise zone : le message t'explique pourquoi ça ne va pas.",
+    slots: [
+      { k: "select", label: "SELECT", multi: true },
+      { k: "from", label: "FROM", multi: false },
+      { k: "where", label: "WHERE", multi: true, sep: " AND " },
+      { k: "group", label: "GROUP BY", multi: true },
+      { k: "having", label: "HAVING", multi: true, sep: " AND " }
+    ],
+    chips: [
+      { t: "campagne_id", s: "select" }, { t: "COUNT(*) AS nb_ko", s: "select" }, { t: "testeur", s: "select" },
+      { t: "cas_test", s: "from" },
+      { t: "resultat = 'KO'", s: "where" }, { t: "resultat = 'OK'", s: "where" },
+      { t: "campagne_id", s: "group" }, { t: "testeur", s: "group" },
+      { t: "COUNT(*) >= 4", s: "having", pas: { where: "Un calcul comme COUNT(*) ne peut pas être dans WHERE : le WHERE filtre les lignes **avant** le regroupement, quand les paquets n'existent pas encore. Une condition sur un paquet va dans HAVING.", select: "Ceci est une condition, pas une colonne à afficher." } },
+      { t: "COUNT(*) >= 2", s: "having", pas: { where: "Une condition sur un calcul va dans HAVING, pas dans WHERE." } }
+    ],
+    indices: ["Deux filtres différents : un sur les **lignes** (`KO`) et un sur les **paquets** (au moins 4).", "Les lignes se filtrent avec WHERE, les paquets avec HAVING."],
+    solution: "SELECT campagne_id, COUNT(*) AS nb_ko\nFROM cas_test\nWHERE resultat = 'KO'\nGROUP BY campagne_id\nHAVING COUNT(*) >= 4;",
+    explication: "**WHERE** trie les lignes avant le regroupement ; **HAVING** trie les paquets après. Ici : d'abord ne garder que les cas KO (WHERE), puis les compter par campagne (GROUP BY), puis ne garder que les campagnes à 4 KO ou plus (HAVING). Le bloc `COUNT(*) >= 2` était un piège : il renvoie trois campagnes au lieu d'une, sans erreur. Un seuil faux ne se voit pas à l'écran : c'est le nombre de lignes attendu qui t'alerte."
+  },
+  {
+    id: "JN-1", niveau: 3, type: "jointure", tables: ["cas_test", "anomalies"], attendu: "LEFT", atelier: true,
+    titre: "Regarde une jointure se dérouler",
+    situation: "Tu veux afficher **tous les cas de test** (les 8 premiers) avec leurs anomalies, y compris ceux qui n'en ont pas. Voici les deux tables concernées.",
+    cours: "Une jointure suit une clé : pour chaque ligne de la table de gauche, on cherche les lignes de la table de droite dont la clé correspond. **INNER JOIN** ne garde que les lignes qui ont une correspondance. **LEFT JOIN** garde **toutes** les lignes de gauche, et met `NULL` à droite quand il n'y a rien.",
+    question: "Relie les clés, choisis le type de jointure, **prédis le nombre de lignes** du résultat, puis lance l'animation. Tu peux relancer avec l'autre type de jointure pour comparer.",
+    goal: "Choisis le type de jointure qui garde tous les cas de test, puis prédis le nombre de lignes du résultat.",
+    left: { table: "cas_test", label: "cas_test (8 premiers)", cols: ["id", "titre", "resultat"], where: "id <= 8", key: "id" },
+    right: { table: "anomalies", label: "anomalies (celles de ces cas)", cols: ["id", "cas_test_id", "severite"], where: "cas_test_id <= 8", key: "cas_test_id" },
+    indices: ["Pense au cas de test 4 : combien d'anomalies a-t-il ?", "Avec LEFT JOIN : une ligne par couple (cas, anomalie), plus une ligne pour chaque cas sans anomalie."],
+    correction: "Avec **LEFT JOIN**, le résultat contient **9 lignes** pour 8 cas de test : 6 cas n'ont aucune anomalie (1 ligne chacun avec `NULL`), le cas 6 en a 1 (1 ligne) et le cas 4 en a 2 (2 lignes) : 6 + 1 + 2 = 9. Avec **INNER JOIN**, il n'y a que **3 lignes** (1 + 2) : 6 cas de test sur 8 disparaissent.",
+    explication: "Deux enseignements à garder. **1.** `INNER JOIN` fait disparaître sans bruit les lignes sans correspondance : si ce sont celles que tu cherches, tu ne les verras jamais. **2.** Le résultat peut avoir **plus de lignes** que la table de gauche (ici 9 pour 8) parce qu'un cas avec deux anomalies apparaît deux fois : c'est le **fan-out**. Si tu comptes les lignes du résultat pour compter des cas de test, tu te trompes (voir N0-4). Avant d'exécuter une jointure, demande-toi toujours : combien de lignes attendre, et pourquoi ?"
+  },
   {
     id: "N3-1", niveau: 3, type: "sql", tables: ["anomalies", "campagnes"],
     titre: "Bloquantes avec le nom de la campagne",

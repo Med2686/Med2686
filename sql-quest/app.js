@@ -3,7 +3,8 @@
   var $ = function (s) { return document.querySelector(s); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var KEY = "sqlquest-v1";
-  var state = { answers: {}, submitted: {}, status: {}, hints: {} };
+  var state = { answers: {}, submitted: {}, status: {}, hints: {}, xp: {} };
+  var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var FREE = { id: "free", type: "libre", titre: "Bac à sable libre", niveau: "libre", tables: [] };
   var TABLES = ["anomalies", "cas_test", "exigences", "campagnes", "clients", "comptes", "transactions", "batchs"];
   var FK = { cas_test_id: "cas_test", exigence_id: "exigences", campagne_id: "campagnes", client_id: "clients", compte_id: "comptes", batch_id: "batchs" };
@@ -103,12 +104,38 @@
   var PILL = { todo: "À FAIRE", repondu: "RÉPONDU", pass: "PASS", partiel: "PARTIEL", fail: "FAIL" };
   function pill(id) { var s = statusOf(id); return "<span class='pill " + s + "'>" + PILL[s] + "</span>"; }
   function validated() { return window.EXERCICES.filter(function (e) { return state.status[e.id] === "pass"; }).length; }
-  function renderMeter() { $("#meter").innerHTML = "<b>" + validated() + "</b> / " + window.EXERCICES.length + " validés"; }
+  function renderMeter() { $("#meter").innerHTML = "<b>" + validated() + "</b> / " + window.EXERCICES.length + " validés"; renderXp(); }
+  var BASE = { 0: 5, 1: 10, 2: 15, 3: 20 };
+  var LEVELS = [["Stagiaire de recette", 0], ["Lecteur de tables", 0.15], ["Enquêteur de données", 0.4], ["Analyste SQL", 0.7], ["Référent data", 0.95]];
+  function xpTotal() { return window.EXERCICES.reduce(function (a, e) { return a + (BASE[e.niveau] || 10); }, 0); }
+  function xpNow() { return Object.keys(state.xp).reduce(function (a, k) { return a + state.xp[k]; }, 0); }
+  function renderXp() {
+    var T = xpTotal(), x = xpNow(), lv = 0;
+    LEVELS.forEach(function (l, i) { if (x >= Math.round(l[1] * T)) lv = i; });
+    var lo = Math.round(LEVELS[lv][1] * T), hi = lv + 1 < LEVELS.length ? Math.round(LEVELS[lv + 1][1] * T) : T;
+    var pct = hi > lo ? Math.min(100, Math.round(100 * (x - lo) / (hi - lo))) : 100;
+    $("#lvl").textContent = "Rang " + (lv + 1) + " · " + LEVELS[lv][0];
+    $("#xpfill").style.width = pct + "%";
+    $("#xpnum").textContent = x + " XP" + (lv + 1 < LEVELS.length ? " · prochain rang à " + hi : "");
+    if (renderXp.lv !== undefined && lv > renderXp.lv) toast("Nouveau rang : " + LEVELS[lv][0]);
+    renderXp.lv = lv;
+  }
+  function award(ex) {
+    if (state.xp[ex.id]) return;
+    var v = Math.round((BASE[ex.niveau] || 10) * (state.hints[ex.id] ? 0.7 : 1));
+    state.xp[ex.id] = v; save(); toast("+" + v + " XP" + (state.hints[ex.id] ? " (indice utilisé)" : "")); renderXp();
+  }
+  function burst() {
+    if (RM) return;
+    var box = document.createElement("div"); box.className = "burst";
+    for (var i = 0; i < 18; i++) { var p = document.createElement("i"), a = (i / 18) * Math.PI * 2, d = 60 + Math.random() * 90; p.style.setProperty("--dx", Math.cos(a) * d + "px"); p.style.setProperty("--dy", Math.sin(a) * d + "px"); p.style.background = ["var(--accent)", "var(--pass)", "var(--warn)", "var(--info)"][i % 4]; box.appendChild(p); }
+    document.body.appendChild(box); setTimeout(function () { box.remove(); }, 1100);
+  }
   function renderNav() {
     var h = "", last = null;
     window.EXERCICES.forEach(function (e) {
       if (e.niveau !== last) { h += "<h4>" + esc(window.NIVEAUX[e.niveau]) + "</h4>"; last = e.niveau; }
-      h += "<a href='#" + e.id + "' data-id='" + e.id + "' aria-current='" + (current && current.id === e.id) + "'><span class='t'>" + esc(e.titre) + "<br><span class='id'>" + e.id + "</span></span>" + pill(e.id) + "</a>";
+      h += "<a href='#" + e.id + "' data-id='" + e.id + "' aria-current='" + (current && current.id === e.id) + "'><span class='t'>" + esc(e.titre) + "<br><span class='id'>" + e.id + (e.atelier ? " · <span class='tag'>glisser-déposer</span>" : "") + "</span></span>" + pill(e.id) + "</a>";
     });
     h += "<h4>Libre</h4><a href='#free' data-id='free' aria-current='" + (current && current.id === "free") + "'><span class='t'>Bac à sable libre<br><span class='id'>requêtes de ton choix</span></span></a>";
     $("#nav").innerHTML = h; renderMeter();
@@ -126,23 +153,30 @@
       if (ex.cours) h += "<section class='card'><details class='cours'><summary>Rappel de cours</summary><div>" + md(ex.cours) + "</div></details></section>";
       h += "<section class='card'><h3>Question</h3>" + md(ex.question) + "</section>";
     }
-    h += "<section class='card'><h3>" + (isSql ? "Ta requête" : "Ta réponse") + "</h3><textarea id='answer' class='" + (isSql ? "sql" : "") + "' spellcheck='false' placeholder='" + (isSql ? "SELECT ..." : "Écris ta réponse ici, avec tes mots.") + "'></textarea>";
-    h += "<div class='actions'>";
-    if (isSql) h += "<button class='btn' id='btn-run'>Exécuter</button>";
-    if (ex.type !== "libre") h += "<button class='btn primary' id='btn-submit'>Valider ma réponse</button>";
-    if (ex.indices) h += "<button class='btn' id='btn-hint'></button>";
-    h += "</div><div id='hints'></div><div id='result'></div></section>";
+    var atel = ["assemblage", "ordre", "jointure"].indexOf(ex.type) >= 0;
+    if (atel) {
+      h += "<section class='card atelier'><h3>Atelier</h3><div id='atelier'></div>" + (ex.indices ? "<div class='actions'><button class='btn' id='btn-hint'></button></div><div id='hints'></div>" : "") + "</section>";
+    } else {
+      h += "<section class='card'><h3>" + (isSql ? "Ta requête" : "Ta réponse") + "</h3><textarea id='answer' class='" + (isSql ? "sql" : "") + "' spellcheck='false' placeholder='" + (isSql ? "SELECT ..." : "Écris ta réponse ici, avec tes mots.") + "'></textarea>";
+      h += "<div class='actions'>";
+      if (isSql) h += "<button class='btn' id='btn-run'>Exécuter</button>";
+      if (ex.type !== "libre") h += "<button class='btn primary' id='btn-submit'>Valider ma réponse</button>";
+      if (ex.indices) h += "<button class='btn' id='btn-hint'></button>";
+      h += "</div><div id='hints'></div><div id='result'></div></section>";
+    }
     h += "<div id='correction'></div>";
     if (ex.type !== "libre") h += "<div class='pager'><button class='btn' id='btn-prev'" + (idx <= 0 ? " disabled" : "") + ">← Précédent</button><button class='btn' id='btn-next'" + (idx >= window.EXERCICES.length - 1 ? " disabled" : "") + ">Suivant →</button></div>";
     $("#main").innerHTML = h;
 
-    var ta = $("#answer"); ta.value = state.answers[ex.id] || "";
-    ta.addEventListener("input", function () { state.answers[ex.id] = ta.value; save(); });
-    if (isSql) {
-      $("#btn-run").addEventListener("click", function () { execute(ta.value); });
-      ta.addEventListener("keydown", function (e) { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); execute(ta.value); } });
-    }
-    if (ex.type !== "libre") $("#btn-submit").addEventListener("click", function () { submit(ex); });
+    if (atel) { window.Atelier[ex.type](ex, $("#atelier")); } else {
+      var ta = $("#answer"); ta.value = state.answers[ex.id] || "";
+      ta.addEventListener("input", function () { state.answers[ex.id] = ta.value; save(); });
+      if (isSql) {
+        $("#btn-run").addEventListener("click", function () { execute(ta.value); });
+        ta.addEventListener("keydown", function (e) { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); execute(ta.value); } });
+      }
+      if (ex.type !== "libre") $("#btn-submit").addEventListener("click", function () { submit(ex); });
+}
     if (ex.indices) { renderHints(ex); $("#btn-hint").addEventListener("click", function () { var n = (state.hints[ex.id] || 0); if (n < ex.indices.length) { state.hints[ex.id] = n + 1; save(); renderHints(ex); } }); }
     if ($("#btn-prev")) $("#btn-prev").addEventListener("click", function () { go(window.EXERCICES[idx - 1].id); });
     if ($("#btn-next")) $("#btn-next").addEventListener("click", function () { go(window.EXERCICES[idx + 1].id); });
@@ -169,21 +203,31 @@
   function submit(ex) {
     var ans = ($("#answer").value || "").trim();
     if (!ans) { toast("Écris d'abord ta réponse : la correction s'affiche après."); $("#answer").focus(); return; }
-    state.answers[ex.id] = ans; state.submitted[ex.id] = true;
     var verdict = null;
     if (ex.type === "sql") {
       var u = execute(ans);
       if (!u) verdict = { ok: false, msg: "Ta requête a produit une erreur (voir ci-dessus). Corrige-la et valide à nouveau." };
       else verdict = compare(u, runQuery(ex.solution), !!ex.ordered);
-      state.status[ex.id] = verdict.ok ? "pass" : "fail";
+    }
+    finish(ex, verdict, ans);
+  }
+  /* Enregistre un résultat (appelé aussi par l'atelier) : statut, XP, correction, animation. */
+  function finish(ex, verdict, answerText) {
+    state.answers[ex.id] = answerText; state.submitted[ex.id] = true;
+    var first = false;
+    if (verdict) {
+      if (verdict.ok) { first = state.status[ex.id] !== "pass"; state.status[ex.id] = "pass"; award(ex); }
+      else if (state.status[ex.id] !== "pass") state.status[ex.id] = "fail";
     }
     save(); renderCorrection(ex, verdict); renderNav();
-    $("#pillbox").innerHTML = pill(ex.id);
-    var c = $("#correction"); if (c) c.scrollIntoView({ block: "start", behavior: "auto" });
+    var pb = $("#pillbox"); if (pb) pb.innerHTML = pill(ex.id);
+    if (first) burst();
+    var c = $("#correction"); if (c) c.scrollIntoView({ block: "start", behavior: RM ? "auto" : "smooth" });
   }
+  window.SQLQ = { run: runQuery, compare: compare, grid: gridHTML, esc: esc, finish: finish };
   function renderCorrection(ex, verdict) {
     var h = "<section class='card correction'>";
-    if (ex.type === "sql") {
+    if (ex.type === "sql" || ex.type === "assemblage") {
       var s = state.status[ex.id];
       if (!verdict) verdict = s === "pass" ? { ok: true } : { ok: false, msg: "Dernière validation : résultat différent de l'attendu. Tu peux corriger et valider à nouveau." };
       h += verdict.ok ? "<div class='verdict ok'>Résultat conforme à l'attendu.<small>Ta requête renvoie les mêmes colonnes et les mêmes lignes que la correction. Compare quand même ton écriture avec celle ci-dessous.</small></div>"
@@ -192,6 +236,11 @@
       var ref = runQuery(ex.solution);
       h += "<h4>Résultat attendu (" + ref.values.length + " ligne" + (ref.values.length > 1 ? "s" : "") + ")</h4><div class='res-wrap'>" + gridHTML(ref.columns, ref.values.slice(0, 30)) + "</div>";
       h += "<h4>Explication</h4>" + md(ex.explication);
+    } else if (ex.type === "ordre" || ex.type === "jointure") {
+      var s2 = state.status[ex.id];
+      if (!verdict) verdict = s2 === "pass" ? { ok: true } : { ok: false, msg: "Pas encore réussi : tu peux réessayer ci-dessus." };
+      h += verdict.ok ? "<div class='verdict ok'>Réussi.</div>" : "<div class='verdict ko'>Pas encore.<small>" + esc(verdict.msg) + "</small></div>";
+      h += "<h4>Correction</h4>" + md(ex.correction) + "<h4>Explication</h4>" + md(ex.explication);
     } else {
       h += "<h4>Correction</h4>" + md(ex.correction) + "<h4>Explication</h4>" + md(ex.explication);
       var st = state.status[ex.id];
@@ -200,7 +249,7 @@
     }
     $("#correction").innerHTML = h + "</section>";
     Array.prototype.forEach.call(document.querySelectorAll("[data-ev]"), function (b) {
-      b.addEventListener("click", function () { state.status[ex.id] = b.getAttribute("data-ev"); save(); renderCorrection(ex, null); renderNav(); $("#pillbox").innerHTML = pill(ex.id); });
+      b.addEventListener("click", function () { var ev = b.getAttribute("data-ev"), first = ev === "pass" && !state.xp[ex.id]; state.status[ex.id] = ev; if (ev === "pass") award(ex); save(); renderCorrection(ex, null); renderNav(); $("#pillbox").innerHTML = pill(ex.id); if (first) burst(); });
     });
   }
 
@@ -237,7 +286,7 @@
       $("#btn-reset").addEventListener("click", function () {
         var b = $("#btn-reset");
         if (b.getAttribute("data-armed") !== "1") { b.setAttribute("data-armed", "1"); b.textContent = "Confirmer l'effacement"; setTimeout(function () { b.removeAttribute("data-armed"); b.textContent = "Effacer ma progression"; }, 4000); return; }
-        state = { answers: {}, submitted: {}, status: {}, hints: {} }; save(); b.removeAttribute("data-armed"); b.textContent = "Effacer ma progression"; route(); toast("Progression effacée.");
+        state = { answers: {}, submitted: {}, status: {}, hints: {}, xp: {} }; save(); b.removeAttribute("data-armed"); b.textContent = "Effacer ma progression"; route(); toast("Progression effacée.");
       });
       window.addEventListener("hashchange", route);
       route();
