@@ -38,4 +38,4 @@ Limite : l'auto-évaluation des exercices de niveau 0 est déclarative (l'appli 
 - Base de données : générée par `.claude/skills/maitre-sql/scripts/build_seed.py`, puis embarquée par
   `python3 build.py` (régénère `seed.js`).
 - Moteur : [sql.js](https://github.com/sql-js/sql.js) 1.10.3 (licence MIT, `vendor/LICENSE-sqljs`),
-  embarqué en base64 (`vendor/sql-wasm-base64.js`) pour fonctionner depuis `file://`.
+  en version asm.js (`vendor/sql-asm.js`, JavaScript pur) : pas de WebAssembly, donc il fonctionne depuis `file://` et dans un environnement à politique de sécurité stricte.

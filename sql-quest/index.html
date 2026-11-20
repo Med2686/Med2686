@@ -173,7 +173,7 @@ td.fk:hover { background: var(--info-soft); }
 .jt tr.lost td { background: var(--fail-soft); color: var(--fail); text-decoration: line-through; }
 tr.enter { animation: slidein .35s ease-out; }
 @keyframes slidein { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
-@media (max-width: 700px) { .jgrid { grid-template-columns: minmax(0,1fr); } .slot { grid-template-columns: 1fr; } .xpbar { width: 80px; } }
+@media (max-width: 700px) { .top { position: static; } body::before { display: none; } .jgrid { grid-template-columns: minmax(0,1fr); } .slot { grid-template-columns: 1fr; } .xpbar { width: 80px; } }
 @media (prefers-reduced-motion: reduce) { .chip.pop, .shake, .ocard.reveal, tr.enter, .burst i { animation: none; } .xpbar i { transition: none; } }
 
 @media (min-width: 1001px) { .nav > summary { display: none; } }
@@ -184,7 +184,7 @@ tr.enter { animation: slidein .35s ease-out; }
 </head>
 <body>
 <header class="top">
-  <h1>SQL Quest</h1><span class="sub">recette bancaire fictive · hors connexion</span>
+  <h1>SQL Quest</h1><span class="sub">recette bancaire fictive</span>
   <span class="grow"></span>
   <div class="xp" title="Points d'expérience : gagnés à chaque exercice réussi (réduits si tu as pris un indice)">
     <span class="lvl" id="lvl"></span>
@@ -206,8 +206,7 @@ tr.enter { animation: slidein .35s ease-out; }
   </aside>
 </div>
 <div id="toast" role="status"></div>
-<script src="vendor/sql-wasm.js"></script>
-<script src="vendor/sql-wasm-base64.js"></script>
+<script src="vendor/sql-asm.js"></script>
 <script src="seed.js"></script>
 <script src="exercices.js"></script>
 <script src="atelier.js"></script>

@@ -277,7 +277,7 @@
   /* ---------- démarrage ---------- */
   function start() {
     load();
-    window.initSqlJs({ wasmBinary: b64bytes(window.SQLJS_WASM_B64) }).then(function (SQL) {
+    window.initSqlJs().then(function (SQL) {
       db = new SQL.Database(); db.exec(window.SEED_SQL);
       $("#nav").addEventListener("click", function (e) { var a = e.target.closest("a"); if (a && window.matchMedia("(max-width: 1000px)").matches) setTimeout(function () { $("#navdet").removeAttribute("open"); }, 0); });
       $("#tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) showTable(b.getAttribute("data-t")); });

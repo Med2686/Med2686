@@ -37,3 +37,10 @@ les affirmer devant la MOE : consulte la documentation officielle du moteur.
 
 « Quel moteur et quelle version, sur quel environnement puis-je faire des SELECT, avec quel compte
 lecture seule, et existe-t-il des vues dédiées plutôt que les tables brutes ? »
+
+## Spark SQL
+
+Spark SQL suit une grande partie du SQL standard et ajoute `LEFT SEMI JOIN`, `LEFT ANTI JOIN`, `collect_list`,
+`datediff(fin, début)` (ordre inverse de SQL Server) et des indications de jointure (`/*+ BROADCAST(t) */`).
+Piège notable : sans le mode ANSI, `1/0` renvoie `NULL` au lieu d'une erreur (vérifié en Spark 3.5). Détail, requêtes
+testées et pièges : skill `spark-pour-ba` (`references/spark-sql-ba.md`).
