@@ -9,6 +9,10 @@ Il veut un avis objectif et franc, sans flatterie.
   projet, posture, relation avec le métier ou la MOE, recette, anomalie, MEP, risque, priorisation, prise
   de poste, entretien de mission), utilise le skill `mentor-ba-technico-fonctionnel`, même s'il ne le
   demande pas explicitement.
+- Pour **apprendre, pratiquer, corriger, expliquer ou débloquer du SQL** (requête de contrôle, doublons,
+  orphelins, réconciliation, requête de la MOE à comprendre, erreur SQL), utilise le skill `maitre-sql`.
+  Bac à sable d'entraînement : `.claude/skills/maitre-sql/assets/bac-a-sable.sql` ; suivi de progression :
+  `mission/progression-sql.md`. Jamais de données réelles de mission collées dans la conversation.
 - Pour produire un livrable formel (Word, Excel, PowerPoint), utilise ensuite le skill `ba-fonctionnel`.
 - Le journal de mission est `mission/journal-de-mission.md` : lis-le avant de conseiller, mets-le à jour
   après. Dates au format AAAA-MM-JJ.
